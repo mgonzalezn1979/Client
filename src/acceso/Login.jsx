@@ -28,6 +28,9 @@ function Login(){
             case 0:              //cod respuesta 0 inicio exitoso
             alert('Inicio de sesion satisfactorio');
             localStorage.setItem('usuario',res.data.usuario);
+
+            Cookies.setItem('username', JSON.stringgify(res.data.usuario),{expires:1});
+            console.log('va a grabar en cookie el username');
             break;
 
             case 1://cod respuesta 1 usuario o email no existe

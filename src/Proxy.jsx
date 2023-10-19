@@ -10,6 +10,7 @@ import Cookies from "js-cookies";
 import Login from "./acceso/Login";
 import Register from "./acceso/Register";
 import Home from "./components/productos/vistas/Home";
+// import Pedidos from "./components/productos/vistas/MisPedidos";
  
 function App() {
  
@@ -20,7 +21,9 @@ function App() {
         <Routes>
         <Route path='/login' Component={Login} />
         <Route path='/home' Component={Home} />
-      <Route path='/register' Component={Register} />
+        <Route path='/register' Component={Register} />
+       
+       
 
       <Route path='/' element=
       {Cookies.getItem("sesion")== undefined || Cookies.getItem("sesion")== null?

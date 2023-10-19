@@ -13,6 +13,7 @@ function Header() {
   useEffect(() => {
      const sesionGuardada = Cookies.getItem("sesion");
     console.log(sesionGuardada);
+    
     if (sesionGuardada) {
       setSesion(sesionGuardada);
       setNombre(sesion.nombre);
@@ -31,12 +32,17 @@ function Header() {
   // setSesion(user);
   function handleCerrar()
   {
+    document.cookie = "sesion=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     Cookies.removeItem("session",'','');
     Cookies.removeItem("session");
+    
+    console.log(Cookies.hasItem('sesion'));
+
+    
     if(Cookies.hasItem('sesion')==false)
     {
     setSesion(null);
-    navigate('/');
+    navigate('/home');
     }
     else{
         console.log('No elimino la wea');

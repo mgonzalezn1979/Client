@@ -8,43 +8,15 @@ import axios from "axios";
 import Producto from "./Producto";
 function Home()
 {
-
-
- 
-
-    const [sesion, setSesion] = useState();
-    const [nombre, setNombre] = useState();
-    const [apellidos, setApellidos] = useState();
-    const [tipoUsuario, setTipoUsuario] = useState();
+     const [sesion, setSesion] = useState();
+    // const [nombre, setNombre] = useState();
+    // const [apellidos, setApellidos] = useState();
+    // const [tipoUsuario, setTipoUsuario] = useState();
     const [listado, setListado] = useState([]);
-    // let listado =[];
-
     const [status, setStatus] = useState(2);
     const [filtro, setFiltro] = useState(-1);
     const [tiposProducto, setTiposProductos] = useState([]);
-
-
-
-    // let listadoFiltrado = [];
-    //status 0 cargado ok desde api
-    //status 1 no hay productos desde api
-    //status 2 inicial no ha ido a buscar a api o cargando...
-
-    // useEffect(()=>{
-    //   console.log("modifica filtro");
-    //   console.log(filtro);
-
-    //   switch(filtro)
-    //   {
-    //     case -1:
-    //           listadoFiltrado = listado;
-    //           break;
-    //   }
-    //   console.log(listadoFiltrado);
-    // },[filtro]);
-    
-
-   function obtieneIDtipoProducto(prod)
+  function obtieneIDtipoProducto(prod)
    {
     console.log("obtieneIDtipoProducto");
     for(let i=0;i<tiposProducto.length;i++)
@@ -77,9 +49,7 @@ function Home()
       let resultado = result.data.data;
       setTiposProductos(resultado);
       console.log(resultado);
-    
-
-    }).catch((error)=>{
+       }).catch((error)=>{
       console.log(error);
     });
 
@@ -89,19 +59,8 @@ function Home()
       console.log("ok al conectar api productos");
       console.log(result.data.data);
       console.log(result.data.data.result);
-
       let resultado =  result.data.data.result;
-
-
-
-
-      //console.log(JSON.parse(result.data.data));
       setListado(resultado);
-      resultado.map(data=>{
-        console.log(data);
-      })
-
-      // listado  =result.data.data;
       setStatus(result.data.status);
       console.log(status);
       console.log(listado);
@@ -170,7 +129,7 @@ function Home()
 
 
 
-        <Footer/>
+        <Footer />
         </>
     )
 

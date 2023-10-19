@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -9,62 +9,28 @@ import {
 import Cookies from "js-cookies";
 import Login from "./acceso/Login";
 import Register from "./acceso/Register";
-import Home from "./components/productos/Home";
-
-function App() {
-  const [email, setEmail] = useState();
-  const [nombre, setNombre] = useState();
-  const [usuarioSesion, setUsuarioSesion] = useState([]);
-  
-  console.log(email);
-  console.log(nombre);
-  console.log(usuarioSesion);
-
-  useEffect(() => {
-    const emailGuardado = Cookies.getItem("email");
-    const nombreGuardado = Cookies.getItem("Nombre");
-    const sesionUsuarioGuardado = Cookies.getItem("sesion");
-
-    console.log("emailGuardado:"+emailGuardado);
-    console.log("nombreGuardado:"+nombreGuardado);
-    console.log("sesionUsuarioGuardado:"+sesionUsuarioGuardado);
-    
-    if (emailGuardado!=null) 
-    {
-      setEmail(emailGuardado);
-    }
-    
-    if (nombreGuardado!=null) 
-     {
-      setNombre(nombreGuardado);
-    }
-    if (sesionUsuarioGuardado!=null) {
-      setUsuarioSesion(sesionUsuarioGuardado);
-      console.log("setea la wea  :");
-    }
+import Home from "./components/productos/vistas/Home";
  
-  }, []);
-
+function App() {
+ 
+  
   return (
     <div>
       <Router>
         <Routes>
         <Route path='/login' Component={Login} />
+        <Route path='/home' Component={Home} />
       <Route path='/register' Component={Register} />
-      <Route path='/' element={Cookies.getItem("sesion")== undefined ?<Navigate to={'login'}/>:
-      <Home/>} />
 
-
-
-
-          
+      <Route path='/' element=
+      {Cookies.getItem("sesion")== undefined || Cookies.getItem("sesion")== null?
+      <Navigate to={'login'}/>:
+      <Navigate to={'home'}/>
+      } />
         </Routes>
-      </Router>
-
-      <p>inicio sesion?</p>
-      <p>usuario sesion:{usuarioSesion}</p>
-      <p>{email}</p>
-      <p>{nombre}</p>
+      </Router>   
+      <p></p>
+      <p></p>
     </div>
   )
 }

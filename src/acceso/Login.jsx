@@ -1,15 +1,41 @@
 import React from "react";
 import {useState, useEffect} from 'react';
+import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookies';
 
-function Login(){
+function Login( ){
 
     const [formData, setFormData] = useState({
         emailUsername:'',
         password:''
         
     });
+
+ const [sesion, setSesion] = useState([]);
+
+ const navigate = useNavigate();
+   
+  
+  useEffect(() => 
+//   function verifica()
+{
+    let sesionGuardado = Cookies.getItem("sesion")==null?JSON.parse(Cookies.getItem("sesion")):[];
+    
+    console.log(sesionGuardado);
+    console.log('eterno loop????');
+    if(sesionGuardado==null)
+    {
+        console.log('no habemus sesion!');
+        //navigate('/');
+    }
+// }
+//verifica();
+  }, []);
+
+
+
+
 
     function handleSubmit(e){
         e.preventDefault();
@@ -25,12 +51,13 @@ function Login(){
 
             switch(status)
             {
-            case 0:              //cod respuesta 0 inicio exitoso
-            alert('Inicio de sesion satisfactorio');
+            case 0:              //cod respuesta 0 inicio exitoso            alert('Inicio de sesion satisfactorio');
             localStorage.setItem('usuario',res.data.usuario);
 
-            Cookies.setItem('username', JSON.stringgify(res.data.usuario),{expires:1});
+            Cookies.setItem('sesion', JSON.stringify(res.data.usuario),{expires:1});
+            setSesion(JSON.stringify(res.data.usuario));
             console.log('va a grabar en cookie el username');
+            navigate('/');
             break;
 
             case 1://cod respuesta 1 usuario o email no existe
@@ -51,10 +78,10 @@ function Login(){
     }
     
     function handleChange(e){
-        console.log('handleChange');
+        
 
         const {name,value} = e.target;
-        console.log('name:'+name+' value:'+value);
+         
         setFormData(
             {
                 ...formData,

@@ -17,21 +17,21 @@ function Login( ){
  const navigate = useNavigate();
    
   
-  useEffect(() => 
-//   function verifica()
-{
-    let sesionGuardado = Cookies.getItem("sesion")==null?JSON.parse(Cookies.getItem("sesion")):[];
+//   useEffect(() => 
+// //   function verifica()
+// {
+//     let sesionGuardado = Cookies.getItem("sesion")==null?JSON.parse(Cookies.getItem("sesion")):[];
     
-    console.log(sesionGuardado);
-    console.log('eterno loop????');
-    if(sesionGuardado==null)
-    {
-        console.log('no habemus sesion!');
-        //navigate('/');
-    }
-// }
-//verifica();
-  }, []);
+//     console.log(sesionGuardado);
+//     console.log('eterno loop????');
+//     if(sesionGuardado==null)
+//     {
+//         console.log('no habemus sesion!');
+//         //navigate('/');
+//     }
+// // }
+// //verifica();
+//   }, []);
 
 
 
@@ -55,9 +55,10 @@ function Login( ){
             localStorage.setItem('usuario',res.data.usuario);
 
             Cookies.setItem('sesion', JSON.stringify(res.data.usuario),{expires:1});
-            setSesion(JSON.stringify(res.data.usuario));
+            //Cookies.setItem('sesion', res.data.usuario,{expires:1});
+            setSesion(res.data.usuario);
             console.log('va a grabar en cookie el username');
-            navigate('/');
+            navigate('/home');
             break;
 
             case 1://cod respuesta 1 usuario o email no existe

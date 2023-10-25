@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from 'react';
-import Popup from "../components/Popup";
+import Popup from "../mensajeria/Popup";
 import axios from "axios";
 
 function Register(){

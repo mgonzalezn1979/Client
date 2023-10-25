@@ -3,6 +3,7 @@ import Header from "./Header";
 import Footer from "../Footer";
 import { useState, useEffect } from "react";
 import Cookies from 'js-cookies'
+import Home from "./Home";
 
 function MisPedidos()
 {

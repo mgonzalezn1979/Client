@@ -4,6 +4,10 @@ import { useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookies';
 
+import { useContext } from "react";
+
+import { Context } from "../contexto/Context";
+
 function Login( ){
 
     const [formData, setFormData] = useState({
@@ -12,11 +16,11 @@ function Login( ){
         
     });
 
- const [sesion, setSesion] = useState([]);
+//  const [sesion, setSesion] = useState([]);
 
  const navigate = useNavigate();
    
-  
+ const { sesion, setSesion}=useContext(Context);
 //   useEffect(() => 
 // //   function verifica()
 // {
@@ -56,9 +60,15 @@ function Login( ){
 
             Cookies.setItem('sesion', JSON.stringify(res.data.usuario),{expires:1});
             //Cookies.setItem('sesion', res.data.usuario,{expires:1});
-            setSesion(res.data.usuario);
+             
+            setSesion( res.data.usuario);
+            (state => ({
+                ...res.data.usuario       
+              }));
             console.log('va a grabar en cookie el username');
-            navigate('/home');
+
+
+            navigate('/');
             break;
 
             case 1://cod respuesta 1 usuario o email no existe

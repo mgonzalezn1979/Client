@@ -1,0 +1,64 @@
+import React from "react";
+import { useEffect, useContext } from "react";
+// import { Context } from "../../contexto/Contexto";
+import { Pedido } from "../../../class/Pedido";
+
+import ItemProducto from "./ItemProducto";
+import { Context } from "../../contexto/Context";
+import Header from "./Header";
+import Footer from "./Footer";
+import axios from "axios";
+import { ItemPedido } from "../../../class/ItemPedido";
+// return <ItemProducto item={item}></ItemProducto>
+
+function VerPedido(){
+
+    const { pedido, sesion}=useContext(Context);
+    
+    console.timeLog("pedido:"+pedido);
+
+
+    function handleRealizarPedido(){
+
+        axios.post("http://localhost:3000/api/pedidos/registrarPedido",[pedido]).then().catch();
+
+
+        //validar todo lo validabel
+        //luego llamar a axios invokar api de ingresar pedido
+        console.log('fin registrar pedido');
+    };
+
+
+    return(<>
+    < Header />
+    <div>PAGINA VER PEDIDO</div>
+    {pedido.items.length>0?
+    <div>
+        <ul>
+ {pedido.items.map(item=>
+        {console.log(item);
+            return <ItemProducto ID={item.ID} cantidad={item.cantidad} nombre={item.nombre} total={item.total} ></ItemProducto>
+        
+        })}
+    </ul>
+    
+    <button onClick={handleRealizarPedido} >Confirmar pedido</button>          
+ 
+
+    </div>:
+
+ 
+
+
+    <div>
+
+
+        <p>No ha seleccionado productos</p></div>
+        }
+        <Footer />
+    
+    </>)
+
+}
+
+export default VerPedido;

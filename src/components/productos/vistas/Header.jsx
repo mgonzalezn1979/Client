@@ -5,12 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../../contexto/Context";
 
 function Header() {
-  // const [sesion, setSesion] = useState([]);
-  // const [flagAdmin, setFlagAdmin] = useState(false);
- 
-
   const navigate = useNavigate();
-
   const { sesion, setSesion}=useContext(Context);
 
    useEffect(() => {
@@ -42,6 +37,7 @@ function Header() {
     Cookies.removeItem("session");
     setSesion(()=>{
       return null});
+      navigate("/");
   }
 
   return (

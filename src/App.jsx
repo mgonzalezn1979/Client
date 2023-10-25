@@ -7,17 +7,12 @@ import {
   Navigate,
 } from "react-router-dom";
 import Cookies from "js-cookies";
-// import Login from "/acceso/Login";
 import Login from "./components/acceso/Login";
 import Register from "./components/acceso/Register";
 import Home from "./components/productos/vistas/Home";
-
- 
-// import StateContext from "./components/class/contexto/StateContext";
 import { Pedido } from "./class/Pedido";
 import { ItemPedido } from "./class/ItemPedido";
 import { Context } from "./components/contexto/Context";
-// import Context from "./ contexto/StateContext"
 import VerPedido from "./components/productos/vistas/VerPedido";
 import Header from "./components/productos/vistas/Header";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +21,7 @@ function App() {
    const [pedido,setPedido] = useState(new Pedido());
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();
-  //  const navigate = useNavigate();
-   /*const [pedidoActual, setPedidoActual] = useState({
-    cantidad:0,
-    total:0    
-    }
-  );*/
+ 
 
   function actualizaResumen()
   {
@@ -86,8 +76,6 @@ function App() {
     actualizaResumen();
     }
 
-
-
   function agregarProducto(ID, nombre, precio)
   {
       
@@ -128,54 +116,7 @@ function App() {
       }
     }
   return null;
-  }
- 
-
-  
-    //al inicio
-//     useEffect(() => {
-//       console.log("se actualiza pedido");
-//       //setPedidoActual(pedidoActual);
-//       if(iniciado){
-//       let item = Cookies.getItem("pedido");
-//       if (item == null || item == undefined) {
-//         item = {cantidad:0, total:0};
-//       } else {
-//         item = JSON.parse(item);
-//         setPedido(item);     
-//       }
-//       setIniciado(false); 
-//       }
-//       //setPedidoActual(item);    
-//       Cookies.setItem("pedido", JSON.stringify(pedido), { expires: 1 });
-//       console.log("actualizaPedido");     
-//     },[pedido]);
-
-//     useEffect(()=>{
-
-//       console.log("inicia proxy valida sesion");
-
-//     const sesionGuardada = Cookies.getItem("sesion");
-//     console.log(sesionGuardada);
-    
-//     if (sesionGuardada) {
-      
-//       console.log('guarda sesion iniciada');
-//       //setSesion(JSON.parse(sesionGuardada));
-//       console.log(sesion);
-//       //navigate("/");
-
-//       /*setSesion(state => ({
-//         ...state        
-//       }));
-// */
-       
-//   } else {
-//     //  navigate("/login");
-//     }
-
-//     },[sesion]);
-
+  }  
     useEffect(()=>{
       console.log("inicia proxy valida sesion al iniciar");
 
@@ -186,9 +127,18 @@ function App() {
         console.log('guarda sesion iniciada');
         setSesion(JSON.parse(sesionGuardada));
         console.log('guardó sesion');
+        // setSesion(state => ({
+        //   ...state        
+        // }));
       }
 
-    },[])
+    },[]);
+
+    useEffect(()=>{
+      console.log("pasa por useEffect de sesion en app.jsx");
+      console.log("sesion es "+sesion);
+    },[sesion]);
+
 
 
     

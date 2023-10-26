@@ -7,10 +7,10 @@ import { Pedido } from "../../../class/Pedido";
 
 function Header() {
   const navigate = useNavigate();
-  const { sesion, setSesion, setPedido}=useContext(Context);
+  const { sesion, setSesion}=useContext(Context);
 
    useEffect(() => {
-    if(sesion==null || sesion==undefined){
+    if(sesion==null || sesion==undefined || Cookies.getItem('sesion')==null){
       navigate("/login");
 
     }

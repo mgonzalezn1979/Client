@@ -1,27 +1,20 @@
 import React from "react";
 import { useEffect, useContext } from "react";
-// import { Context } from "../../contexto/Contexto";
 import { Pedido } from "../../../class/Pedido";
-
 import ItemProducto from "./ItemProducto";
 import { Context } from "../../contexto/Context";
 import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
-import { ItemPedido } from "../../../class/ItemPedido";
 import { useNavigate } from "react-router-dom";
-// return <ItemProducto item={item}></ItemProducto>
 
 function VerPedido(){
 
     const { pedido, sesion, setPedido}=useContext(Context);
-    const navigate = useNavigate();
-    
+    const navigate = useNavigate();    
     console.timeLog("pedido:"+pedido);
 
-
     function handleRealizarPedido(){
-
 
         console.log("handleRealizarPedido");
         console.log("sesion es "+sesion);
@@ -42,18 +35,12 @@ function VerPedido(){
           alert("su id pedido es "+res.data.idPedido);
           setPedido(new Pedido());
           navigate("/");
-
         }
 
         ).catch((error)=>
         {
             console.log(error);
-        }
-        );
-
-
-        //validar todo lo validabel
-        //luego llamar a axios invokar api de ingresar pedido
+        });       
         console.log('fin registrar pedido');
     };
 

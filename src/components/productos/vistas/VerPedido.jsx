@@ -9,18 +9,47 @@ import Header from "./Header";
 import Footer from "./Footer";
 import axios from "axios";
 import { ItemPedido } from "../../../class/ItemPedido";
+import { useNavigate } from "react-router-dom";
 // return <ItemProducto item={item}></ItemProducto>
 
 function VerPedido(){
 
-    const { pedido, sesion}=useContext(Context);
+    const { pedido, sesion, setPedido}=useContext(Context);
+    const navigate = useNavigate();
     
     console.timeLog("pedido:"+pedido);
 
 
     function handleRealizarPedido(){
 
-        axios.post("http://localhost:3000/api/pedidos/registrarPedido",[pedido]).then().catch();
+
+        console.log("handleRealizarPedido");
+        console.log("sesion es "+sesion);
+        console.log("pedido: "+pedido);
+
+        axios.post("http://localhost:3000/api/pedidos/crearPedido",        
+        {
+        username:sesion.username, 
+        tipoUsuario:sesion.tipoUsuario,
+        cantidadProductos:pedido.cantidadProductos, 
+        total:pedido.total,
+        items:pedido.items}).then((res)=>
+        {
+            console.log("respuesta crear pedido "+res);
+            if(res.data.status==0){
+                console.log('PEDIDO INGRESADO OK');
+                }
+          alert("su id pedido es "+res.data.idPedido);
+          setPedido(new Pedido());
+          navigate("/");
+
+        }
+
+        ).catch((error)=>
+        {
+            console.log(error);
+        }
+        );
 
 
         //validar todo lo validabel

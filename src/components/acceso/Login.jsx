@@ -21,25 +21,8 @@ function Login( ){
  const navigate = useNavigate();
    
  const { sesion, setSesion}=useContext(Context);
-//   useEffect(() => 
-// //   function verifica()
-// {
-//     let sesionGuardado = Cookies.getItem("sesion")==null?JSON.parse(Cookies.getItem("sesion")):[];
-    
-//     console.log(sesionGuardado);
-//     console.log('eterno loop????');
-//     if(sesionGuardado==null)
-//     {
-//         console.log('no habemus sesion!');
-//         //navigate('/');
-//     }
-// // }
-// //verifica();
-//   }, []);
 
-
-
-
+ 
 
     function handleSubmit(e){
         e.preventDefault();

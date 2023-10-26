@@ -15,6 +15,7 @@ import { ItemPedido } from "./class/ItemPedido";
 import { Context } from "./components/contexto/Context";
 import VerPedido from "./components/productos/vistas/VerPedido";
 import Header from "./components/productos/vistas/Header";
+import MisPedidos from "./components/productos/vistas/MisPedidos";
 import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -163,6 +164,7 @@ function App() {
             <Route path="/home" Component={Home} />
             <Route path="/register" Component={Register} />
             <Route path="/verPedido" Component={VerPedido} />
+            <Route path='/misPedidos' Component={MisPedidos} />
             
             
 

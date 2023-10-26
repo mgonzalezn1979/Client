@@ -3,38 +3,27 @@ import { useState, useEffect, useContext } from "react";
 import Cookies from "js-cookies";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../../contexto/Context";
+import { Pedido } from "../../../class/Pedido";
 
 function Header() {
   const navigate = useNavigate();
-  const { sesion, setSesion}=useContext(Context);
+  const { sesion, setSesion, setPedido}=useContext(Context);
 
    useEffect(() => {
     if(sesion==null || sesion==undefined){
       navigate("/login");
 
     }
-  //    const sesionGuardada = Cookies.getItem("sesion");
-  //   console.log(sesionGuardada);
-    
-  //   if (sesionGuardada) {
-  //     setSesion(sesionGuardada);
-  //     setNombre(sesion.nombre);
-
-  //     if(sesion.tipoUsuario=='Administrador')
-  //     {
-  //       setFlagAdmin(true);
-  //     }
-  // } else {
-  //     navigate("/");
-  //   }
    }, []);
 
-  // setSesion(user);
   function handleCerrar()
   {
     document.cookie = "sesion=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
     Cookies.removeItem("session",'','');
     Cookies.removeItem("session");
+    Cookies.removeItem('pedido');
+    Cookies.removeItem('pedido','');
+   // setPedido(new Pedido());
     setSesion(()=>{
       return null});
       navigate("/");
@@ -42,7 +31,13 @@ function Header() {
 
   return (
     <>
-      <div><button onClick={()=>{navigate("/")}}>Home</button></div>
+      <div>
+        <button onClick={()=>{navigate("/")}}>Home</button>
+        </div>
+
+        <div>
+        <button onClick={()=>{navigate("/misPedidos")}}>Mis pedidos</button>
+        </div>
      {sesion!=null?
       <div>
         <h1>Bienvenido: {sesion.nombre}</h1>

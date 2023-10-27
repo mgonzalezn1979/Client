@@ -16,7 +16,9 @@ import { Context } from "./components/contexto/Context";
 import VerPedido from "./components/productos/vistas/VerPedido";
 import Header from "./components/productos/vistas/Header";
 import MisPedidos from "./components/productos/vistas/MisPedidos";
+import AdminProductos from "./components/mantenedor/AdminProductos";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();
    const [flagCreaPedido, setFlagCreaPedido] =  useState(true);
+   const [tipoUsuario, setTipoUsuario] = useState("");
+   const [tiposProducto, setTiposProducto] = useState([]);
  
 
   function actualizaResumen()
@@ -128,8 +132,28 @@ function App() {
     }
   return null;
   }  
+ 
+
+
     useEffect(()=>{
+
+      
       console.log("inicia proxy valida sesion al iniciar");
+
+
+      console.log("recargar listado ");
+      axios
+        .get("http://localhost:3000/api/productos/obtieneTiposDeProducto")
+        .then((data) => {
+          console.log("data tipos de productos " + data);
+          if (data) {
+            setTiposProducto(Array.from(data.data.data));
+          }
+        })
+        .catch((error) => {
+          console.log("Error al obtener tipos de producto");
+          console.log(error);
+        });
 
       const sesionGuardada = Cookies.getItem("sesion");
       console.log(sesionGuardada);
@@ -142,12 +166,8 @@ function App() {
         if(pedGuardado){
           setPedido(Pedido.convert(JSON.parse(pedGuardado)));
           actualizaResumen();
-        }
-        // setSesion(state => ({
-        //   ...state        
-        // }));
+        }     
       }
-
     },[]);
 
     useEffect(()=>{
@@ -176,7 +196,8 @@ function App() {
           agregarItemProducto, quitarItemProducto,
           eliminarProducto, sesion, setSesion,
           setFlagCreaPedido, flagCreaPedido,
-          limpiarCarrito
+          limpiarCarrito,setTipoUsuario,
+          tiposProducto
          }}
       >
        
@@ -187,6 +208,7 @@ function App() {
             <Route path="/register" Component={Register} />
             <Route path="/verPedido" Component={VerPedido} />
             <Route path='/misPedidos' Component={MisPedidos} />
+            <Route path='/adminProductos' Component={AdminProductos} />
             
             
 

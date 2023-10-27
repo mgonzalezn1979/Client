@@ -7,7 +7,6 @@ function Producto(producto)
 {
     const {agregarProducto, pedido}=useContext(Context);
     console.log(pedido);
-    
     useEffect(()=>{
         console.log("objeto producto");
         console.log(producto);

@@ -20,7 +20,7 @@ function Login( ){
 
  const navigate = useNavigate();
    
- const { sesion, setSesion}=useContext(Context);
+ const { sesion, setSesion, setTipoUsuario}=useContext(Context);
 
  
 
@@ -45,10 +45,12 @@ function Login( ){
             //Cookies.setItem('sesion', res.data.usuario,{expires:1});
              
             setSesion( res.data.usuario);
-            (state => ({
-                ...res.data.usuario       
-              }));
+           
+            // (state => ({
+            //     ...res.data.usuario       
+            //   }));
             console.log('va a grabar en cookie el username');
+            setTipoUsuario(res.data.usuario.tipoUsuario);
 
 
             navigate('/');

@@ -86,20 +86,7 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
 
     setFlagCreaPedido(false);
     setPedido(pedidoModificado);
-    actualizaResumen()
-
-    // setPedido(pedidoModificado);
-    // detalle.items.forEach(item=>{
-    //     const cantidad =item.cantidad;
-    //     const ID_PROD= item.ID_PRODUCTO;
-    //     const nombre = item.nombre;
-    //     const precio =  item.precio;
-    //     for (let index = 0; index < cantidad; index++) {
-    //         agregarProducto(ID_PROD, nombre, precio);
-    //     }
-
-    // });
-
+    actualizaResumen();
     navigate("/verPedido");
   };
 

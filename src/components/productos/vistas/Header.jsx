@@ -8,7 +8,9 @@ import { Pedido } from "../../../class/Pedido";
 function Header() {
   const navigate = useNavigate();
   const { sesion, setSesion, flasetFlagCreaPedido, flagCreaPedido,
-    limpiarCarritog}=useContext(Context);
+    limpiarCarrito, tipoUsuario}=useContext(Context);
+
+    console.log("tipo usuairo "+tipoUsuario);
 
    useEffect(() => {
     if(sesion==null || sesion==undefined || Cookies.getItem('sesion')==null){
@@ -40,8 +42,18 @@ function Header() {
         <button onClick={()=>{navigate("/misPedidos")}}>Mis pedidos</button>
         </div>
         <div>
-          {!flagCreaPedido?<button onClick={limpiarCarritog}>Pedido nuevo</button>
+          {!flagCreaPedido?<button onClick={limpiarCarrito}>Pedido nuevo</button>
           :<p></p>}
+
+        </div>
+        {
+        (sesion && sesion.tipoUsuario=='Administrador')?<p>
+          <button onClick={()=>{navigate("/adminProductos")}}>Productos</button>
+        </p>:
+        <p>no es admin ${tipoUsuario}</p>
+        }
+
+           <div>
 
         </div>
      {sesion!=null?

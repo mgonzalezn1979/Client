@@ -97,7 +97,7 @@ function Home() {
             <ul>
               {listado.map((producto) => {
                 if (producto.tipoProducto == filtro)
-                  return <li key={producto.ID}><Producto producto={producto} /></li>;
+                  return <li key={producto.ID}><Producto producto={producto} isAdmin={false} /></li>;
                 else if (filtro == -1) return <li key={producto.ID}><Producto producto={producto} /></li>;
               })}
             </ul>

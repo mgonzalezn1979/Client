@@ -7,6 +7,8 @@ export class Pedido{
         this.total=0;
         this.cantidadProductos=0;
         this.items=[];
+        this.ID=-1;
+        this.fecha=new Date();
     }
 
     static convert(obj)

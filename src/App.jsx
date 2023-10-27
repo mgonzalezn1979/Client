@@ -18,10 +18,12 @@ import Header from "./components/productos/vistas/Header";
 import MisPedidos from "./components/productos/vistas/MisPedidos";
 import { useNavigate } from "react-router-dom";
 
+
 function App() {
    const [pedido,setPedido] = useState(new Pedido());
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();
+   const [flagCreaPedido, setFlagCreaPedido] =  useState(true);
  
 
   function actualizaResumen()
@@ -52,9 +54,17 @@ function App() {
             pedido.items[i].total-=pedido.items[i].precio;
         }
     }
-
   console.log("quitar item producto");
   actualizaResumen();
+  }
+
+  function limpiarCarrito(){
+    console.log("limpar carrito");
+    setPedido(new Pedido());
+    setFlagCreaPedido(true);
+    actualizaResumen();
+    console.log("limpio?"+pedido);
+    localStorage.setItem('pedido', JSON.stringify(new Pedido()));
   }
   
   function agregarItemProducto(ID)
@@ -128,6 +138,11 @@ function App() {
         console.log('guarda sesion iniciada');
         setSesion(JSON.parse(sesionGuardada));
         console.log('guardó sesion');
+        const pedGuardado = localStorage.getItem('pedido');
+        if(pedGuardado){
+          setPedido(Pedido.convert(JSON.parse(pedGuardado)));
+          actualizaResumen();
+        }
         // setSesion(state => ({
         //   ...state        
         // }));
@@ -140,6 +155,11 @@ function App() {
       console.log("sesion es "+sesion);
     },[sesion]);
 
+    useEffect(()=>{
+      console.log("pasa por useEffect de PEDIDO en app.jsx");
+      console.log("PEDIDO es "+pedido);
+      localStorage.setItem('pedido',JSON.stringify(pedido));
+    },[pedido]);
 
 
     
@@ -154,7 +174,9 @@ function App() {
         value={{ pedido, setPedido, getProducto, 
           agregarProducto, actualizaResumen,
           agregarItemProducto, quitarItemProducto,
-          eliminarProducto, sesion, setSesion
+          eliminarProducto, sesion, setSesion,
+          setFlagCreaPedido, flagCreaPedido,
+          limpiarCarrito
          }}
       >
        

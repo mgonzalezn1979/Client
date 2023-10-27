@@ -21,7 +21,7 @@ function ItemProducto({cantidad, nombre, total, ID}){
         eliminarProducto(ID);
     }
     return(
- <li>
+ <li key={ID}>
     <button onClick={handleEliminarProducto} >Eliminar</button>
     <p>{cantidad} x {nombre} total:{total} </p>
     <button onClick={handleAgregarItemProducto} >+</button>

@@ -10,9 +10,46 @@ import { useNavigate } from "react-router-dom";
 
 function VerPedido(){
 
-    const { pedido, sesion, setPedido}=useContext(Context);
+    const { pedido, sesion, setPedido, setFlagCreaPedido,flagCreaPedido}=useContext(Context);
     const navigate = useNavigate();    
-    console.timeLog("pedido:"+pedido);
+    console.log("pedido:"+pedido);
+    console.log("flag creaModifica=false"+flagCreaPedido);
+
+    const handleModificarPedido =()=>{
+        console.log("modificar pedido");
+       
+        axios.put("http://localhost:3000/api/pedidos/pedido/"+pedido.ID,        
+        {
+        username:sesion.username, 
+        tipoUsuario:sesion.tipoUsuario,
+        cantidadProductos:pedido.cantidadProductos, 
+        total:pedido.total,
+        items:pedido.items}).then((res)=>
+        {
+            console.log("respuesta crear pedido "+res);
+            if(res.data.status==0){
+                console.log('Modificado OK');
+                alert("Pedido modificado ok");
+                setPedido(new Pedido());
+                setFlagCreaPedido(true);
+                navigate("/");
+                }
+                else{
+                    alert("error al modificar");
+                }
+        
+        }
+
+        ).catch((error)=>
+        {
+            console.log(error);
+        });       
+        console.log('fin registrar pedido');
+
+
+
+
+    }
 
     function handleRealizarPedido(){
 
@@ -20,7 +57,7 @@ function VerPedido(){
         console.log("sesion es "+sesion);
         console.log("pedido: "+pedido);
 
-        axios.post("http://localhost:3000/api/pedidos/crearPedido",        
+        axios.post("http://localhost:3000/api/pedidos/pedido",        
         {
         username:sesion.username, 
         tipoUsuario:sesion.tipoUsuario,
@@ -47,7 +84,8 @@ function VerPedido(){
 
     return(<>
     < Header />
-    <div>PAGINA VER PEDIDO</div>
+    <h2>PAGINA VER PEDIDO </h2>
+    
     {pedido.items.length>0?
     <div>
         <ul>
@@ -58,17 +96,11 @@ function VerPedido(){
         })}
     </ul>
     
-    <button onClick={handleRealizarPedido} >Confirmar pedido</button>          
- 
-
+    {flagCreaPedido?<button onClick={handleRealizarPedido} >Confirmar pedido</button> 
+    :<button onClick={handleModificarPedido}>Confirmar modificacion</button> 
+    }        
     </div>:
-
- 
-
-
     <div>
-
-
         <p>No ha seleccionado productos</p></div>
         }
         <Footer />

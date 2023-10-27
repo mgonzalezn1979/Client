@@ -42,14 +42,11 @@ const navigate = useNavigate();
           ) : (
             <div>
                
-            <p>Total: {pedido.total}</p>
+            <p>Total: { (Math.round(pedido.total * 100) / 100).toFixed(2)}  €</p>
             <p>Cantidad productos: {pedido.cantidadProductos}</p>
             <button onClick ={handleVerPedido}>Ver pedido</button>   
             </div>
           )}
-         pedido:
-           
-        
             
         </div></>
          

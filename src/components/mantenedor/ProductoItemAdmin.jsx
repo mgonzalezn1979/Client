@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Context } from "../contexto/Context";
 import { useContext } from "react";
 
-function ProductoAdmin(producto) {
+function ProductoItemAdmin(producto) {
   const navigate = useNavigate();
   const { tiposProducto, listado, setListado}=useContext(Context);
 
@@ -101,6 +101,7 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
   function handleChangeNombre(value) {
     setNombre(value);
   }
+  
   return (
     <div>
       <p></p>
@@ -110,6 +111,7 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
       <div>foto: {producto.urlFoto}</div>
       <div>Descripcion: {producto.producto.Descripcion}</div>
       <div>Precio: {producto.producto.precio}</div>
+      <div>Tipo: {tiposProducto.find(tipos=>tipos.ID==producto.producto.tipoProducto).Nombre}</div>
 
       {estadoModificar ? (
         <div>
@@ -174,5 +176,4 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
     </div>
   );
 }
-
-export default ProductoAdmin;
+export default ProductoItemAdmin;

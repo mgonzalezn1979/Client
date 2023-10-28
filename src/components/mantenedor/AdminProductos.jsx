@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import ProductoAdmin from "./ProductoAdmin";
+import ProductoItemAdmin from "./ProductoItemAdmin";
 import Header from "../productos/vistas/Header";
 import { Context } from "../contexto/Context";
 import { useContext } from "react";
@@ -165,7 +165,7 @@ function AdminProductos() {
           <input type="submit" value="Crear" />          
         </form>
         <button onClick={() => {
-            setVisibleCrear(!visibleCrear);setFormNombre('NUEVO');
+            setVisibleCrear(!visibleCrear);
           }} >Volver</button>
       </div>
       {listado?<div hidden={visibleCrear}>
@@ -176,7 +176,7 @@ function AdminProductos() {
             {listado.map((producto) => {
               return (
                 <li key={producto.ID}>
-                  <ProductoAdmin producto={producto} />
+                  <ProductoItemAdmin producto={producto} />
                 </li>
               );
             })}

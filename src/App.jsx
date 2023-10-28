@@ -28,6 +28,7 @@ function App() {
    const [flagCreaPedido, setFlagCreaPedido] =  useState(true);
    const [tipoUsuario, setTipoUsuario] = useState("");
    const [tiposProducto, setTiposProducto] = useState([]);
+   const [listado, setListado] = useState([]);
  
 
   function actualizaResumen()
@@ -175,6 +176,14 @@ function App() {
       console.log("sesion es "+sesion);
     },[sesion]);
 
+    useEffect(()=>
+    {
+      console.log("Listado actualizado se ha modificado ")
+      listado.map(item=>{
+        console.log(item);
+      });
+    },[listado]);
+
     useEffect(()=>{
       console.log("pasa por useEffect de PEDIDO en app.jsx");
       console.log("PEDIDO es "+pedido);
@@ -196,7 +205,7 @@ function App() {
           agregarItemProducto, quitarItemProducto,
           eliminarProducto, sesion, setSesion,
           setFlagCreaPedido, flagCreaPedido,
-          limpiarCarrito,setTipoUsuario,
+          limpiarCarrito,setTipoUsuario, listado, setListado,
           tiposProducto
          }}
       >

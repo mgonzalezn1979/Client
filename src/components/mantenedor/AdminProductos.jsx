@@ -8,14 +8,13 @@ import { Context } from "../contexto/Context";
 import { useContext } from "react";
 
 function AdminProductos() {
-  const [listado, setListado] = useState([]);
+  
   const [visibleCrear, setVisibleCrear] = useState(false);
- 
   const [formNombre, setFormNombre] = useState("");
   const [formDescripcion, setFormDescripcion] = useState("");
   const [formPrecio, setFormPrecio] = useState("");
   const [formTipoProducto, setFormTipoProducto] = useState('');
-  const { tiposProducto}=useContext(Context);
+  const { tiposProducto, listado, setListado}=useContext(Context);
 
   const navigate = useNavigate();
 
@@ -41,15 +40,35 @@ function AdminProductos() {
         }).
         then((data)=>{
             console.log("llegó al request!");
+          
 
-            if(data.data.status==0){
+            if(data.data.status==0){               
                 alert("producto creado correctamente");
-                navigate('/adminProductos');
+                //navigate('/adminProductos');
+
+                const nuevo ={ 
+                  ID:data.data.idPedido,
+                  Nombre:nombre,
+                  Descripcion:descripcion,
+                  urlFoto:'',
+                  tipoProducto:tipo,
+                  precio:precio,
+                  descuento:0                  
+              };
+                setListado(old=>[...old, nuevo]);
+       
+                setFormNombre('');
+                setFormDescripcion('');
+                setFormPrecio(0);
+                setFormTipoProducto('');
+                setVisibleCrear(!visibleCrear);
+                 
             }
             else{
                 alert("error al ingresar producto en base datos");
             }
         }).catch((error)=>{
+            console.log(error);
             console.log("error al registrar producto");
         });
 
@@ -71,21 +90,16 @@ function AdminProductos() {
 
   const validaTipo =(tipo)=>
   {
-    const patternPrecio =/^[0-9]{0,2}$/;
-    console.log(tipo);
-    if(patternPrecio.test(tipo)){
-        console.log("tipo valido "+tipo);
-        return true;
+    if(tipo.trim()=='') {
+      alert("debe seleccionar tipo de producto");
+      return false;
     }
-    else{ 
-        console.log("tipo no valido "+tipo);
-        return false;
-    }
+    else return true;
   }
 
-  useEffect(() => {
-    
-    
+
+
+  useEffect(() => {   
 
     axios
       .get("http://localhost:3000/api/productos/obtieneListaProductos")
@@ -102,6 +116,9 @@ function AdminProductos() {
         console.log("error:" + error);
       });
   }, []);
+
+
+
 
   return (
     <><Header />
@@ -145,28 +162,13 @@ function AdminProductos() {
             })}
           </select>
 
-          <input type="submit" value="Crear" />
+          <input type="submit" value="Crear" />          
         </form>
+        <button onClick={() => {
+            setVisibleCrear(!visibleCrear);setFormNombre('NUEVO');
+          }} >Volver</button>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div hidden={visibleCrear}>
+      {listado?<div hidden={visibleCrear}>
         {listado.length == 0 ? (
           <p>No hay productos</p>
         ) : (
@@ -181,6 +183,7 @@ function AdminProductos() {
           </ul>
         )}
       </div>
+    :null}
     </>
   );
 }

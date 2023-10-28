@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 function ProductoAdmin(producto) {
   const navigate = useNavigate();
-  const { tiposProducto}=useContext(Context);
+  const { tiposProducto, listado, setListado}=useContext(Context);
 
   const [ID, setID] = useState(producto.producto.ID);
   const [estadoModificar, setEstadoModificar] = useState(false);
@@ -23,6 +23,12 @@ function ProductoAdmin(producto) {
   // setNombre(producto.producto.Nombre);
 
   function handleEliminar() {
+
+    const res  = alert('Está seguro que quiere eliminar este producto?');
+    console.log(res);
+
+    if(true)
+    {
     console.log("ID A ELIMINAR ES :" + ID);
 
     axios
@@ -32,7 +38,12 @@ function ProductoAdmin(producto) {
         const status = data.data.status;
         if (status == 0) {
           alert("Producto eliminado correctamente");
-          navigate("/adminProductos");
+          //hay que eliminar producto del array de producitos en state de listado
+          
+          setListado(listado.filter(item=>item.ID!=ID));
+          
+          
+          //navigate("/adminProductos");
         } else {
           alert("Error al eliminar producto de la base datos");
         }
@@ -41,6 +52,7 @@ function ProductoAdmin(producto) {
         console.log(error);
         console.log("error al eliminar producto");
       });
+  }
   }
 
   const handleModificar = () => {
@@ -124,7 +136,7 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
         <label htmlFor="precio">Precio:</label>
             <input
               type="text"
-              value={descripcion}
+              value={precio}
               onChange={(e) => {
                 setPrecio(e.target.value);
               }}

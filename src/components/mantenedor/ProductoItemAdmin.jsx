@@ -8,7 +8,7 @@ import { useContext } from "react";
 
 function ProductoItemAdmin(producto) {
   const navigate = useNavigate();
-  const { tiposProducto, listado, setListado}=useContext(Context);
+  const { tiposProducto, listado, setListado } = useContext(Context);
 
   const [ID, setID] = useState(producto.producto.ID);
   const [estadoModificar, setEstadoModificar] = useState(false);
@@ -18,41 +18,43 @@ function ProductoItemAdmin(producto) {
 
   const [nombre, setNombre] = useState(producto.producto.Nombre);
 
+  const [imagen, setImagen] = useState();
+  const [imagenUrl, setImagenUrl] = useState();
 
+  function handleImagenCambio(e) {
+    setImagen(e.target.files[0]);
+  }
 
   // setNombre(producto.producto.Nombre);
 
   function handleEliminar() {
-
-    const res  = alert('Está seguro que quiere eliminar este producto?');
+    const res = alert("Está seguro que quiere eliminar este producto?");
     console.log(res);
 
-    if(true)
-    {
-    console.log("ID A ELIMINAR ES :" + ID);
+    if (true) {
+      console.log("ID A ELIMINAR ES :" + ID);
 
-    axios
-      .delete("http://localhost:3000/api/productos/producto/" + ID)
-      .then((data) => {
-        console.log("invoko a api");
-        const status = data.data.status;
-        if (status == 0) {
-          alert("Producto eliminado correctamente");
-          //hay que eliminar producto del array de producitos en state de listado
-          
-          setListado(listado.filter(item=>item.ID!=ID));
-          
-          
-          //navigate("/adminProductos");
-        } else {
-          alert("Error al eliminar producto de la base datos");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log("error al eliminar producto");
-      });
-  }
+      axios
+        .delete("http://localhost:3000/api/productos/producto/" + ID)
+        .then((data) => {
+          console.log("invoko a api");
+          const status = data.data.status;
+          if (status == 0) {
+            alert("Producto eliminado correctamente");
+            //hay que eliminar producto del array de producitos en state de listado
+
+            setListado(listado.filter((item) => item.ID != ID));
+
+            //navigate("/adminProductos");
+          } else {
+            alert("Error al eliminar producto de la base datos");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log("error al eliminar producto");
+        });
+    }
   }
 
   const handleModificar = () => {
@@ -66,42 +68,48 @@ function ProductoItemAdmin(producto) {
   const handleValidar = (e) => {
     e.preventDefault();
     console.log("handleValidar");
-    console.log("tipo producto es "+tipo);
- 
-// const { nombre, descripcion, urlFoto, precio, descuento, tipoProducto } =
-   
-    //LLAMAR APi put para actualizar
-axios.put("http://localhost:3000/api/productos/producto/"+ID,
-    {
-        nombre:nombre,
-        descripcion:descripcion,
-        precio:precio,
-        urlFoto:'',
-        descuento:0,
-        tipoProducto:tipo
-    }).then((data)=>{
+    console.log("tipo producto es " + tipo);
 
+    const formData = new FormData();
+    formData.append("imagen", imagen);
+    formData.append("nombre", nombre);
+    formData.append("descripcion", descripcion);
+    formData.append("tipoProducto", tipo);
+    formData.append("precio", precio);
+    formData.append("descuento", 0);
+
+    //LLAMAR APi put para actualizar
+    axios
+      .put("http://localhost:3000/api/productos/producto/" + ID, formData)
+      .then((data) => {
         const status = data.data.status;
-        if(status==0)
-        {
-        alert("modificado correctamente");
-        }else
-        {
-            alert("error al modificar");
+        if (status == 0) {
+          alert("modificado correctamente");
+          let actual = listado;
+          const index = listado.findIndex(x=>x.ID === ID);
+          
+          actual[index].Descripcion=descripcion;
+          actual[index].Nombre=nombre;
+          actual[index].tipoProducto = tipo;
+          actual[index].precio = precio;
+          setListado(actual);
+          setEstadoModificar(!estadoModificar);
+          console.log("find e modificar");
+
+        } else {
+          alert("error al modificar");
         }
-    }).catch((error)=>{
+      })
+      .catch((error) => {
         console.log(error);
         alert("error al modificar");
-    });
-
-
-
+      });
   };
 
   function handleChangeNombre(value) {
     setNombre(value);
   }
-  
+
   return (
     <div>
       <p></p>
@@ -111,7 +119,14 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
       <div>foto: {producto.urlFoto}</div>
       <div>Descripcion: {producto.producto.Descripcion}</div>
       <div>Precio: {producto.producto.precio}</div>
-      <div>Tipo: {tiposProducto.find(tipos=>tipos.ID==producto.producto.tipoProducto).Nombre}</div>
+      <div>
+        Tipo:{" "}
+        {
+          tiposProducto.find(
+            (tipos) => tipos.ID == producto.producto.tipoProducto
+          ).Nombre
+        }
+      </div>
 
       {estadoModificar ? (
         <div>
@@ -134,8 +149,7 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
               }}
             ></input>
 
-
-        <label htmlFor="precio">Precio:</label>
+            <label htmlFor="precio">Precio:</label>
             <input
               type="text"
               value={precio}
@@ -144,21 +158,33 @@ axios.put("http://localhost:3000/api/productos/producto/"+ID,
               }}
             ></input>
 
-<label htmlFor="tipo">Tipo:</label>
-          <select id="tipoProducto " onChange={(e)=>{setTipo(e.target.value);validaTipo(e.target.value)}}>
-            {tiposProducto.map((item) => {
-              console.log(item);
-              return (
-                <option key={item.ID} value={item.ID}>
-                  {item.Nombre}
-                </option>
-              );
-            })}
-          </select>
-
-
+            <label htmlFor="tipo">Tipo:</label>
+            <select
+              id="tipoProducto "
+              onChange={(e) => {
+                setTipo(e.target.value);
+                validaTipo(e.target.value);
+              }}
+            >
+              {tiposProducto.map((item) => {
+                console.log(item);
+                return (
+                  <option key={item.ID} value={item.ID}>
+                    {item.Nombre}
+                  </option>
+                );
+              })}
+            </select>
 
             <br />
+            <label htmlFor="imagen">Imagen</label>
+            <input
+              type="file"
+              name="imagen"
+              id="iamgen"
+              accept="image/*"
+              onChange={handleImagenCambio}
+            />
             <input type="submit" value="Confirmar" />
           </form>
         </div>

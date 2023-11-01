@@ -21,6 +21,8 @@ function ProductoItemAdmin(producto) {
   const [imagen, setImagen] = useState();
   const [imagenUrl, setImagenUrl] = useState();
 
+  const THIS_URL= "http://localhost:3000/";
+
   function handleImagenCambio(e) {
     setImagen(e.target.files[0]);
   }
@@ -113,7 +115,8 @@ function ProductoItemAdmin(producto) {
   return (
     <div>
       <p></p>
-      {estadoModificar ? <h1>Welcome to CodeSandBox</h1> : null}
+      {estadoModificar ? <h1>Mofificar producto</h1> : null}
+      <div>{producto.producto.urlFoto?<img src={producto.producto.urlFoto}></img>:null}</div>
 
       <div>Nombre: {producto.producto.Nombre}</div>
       <div>foto: {producto.urlFoto}</div>

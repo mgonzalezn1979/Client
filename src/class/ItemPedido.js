@@ -11,6 +11,7 @@ constructor(){
     this.total=0;
     this.ID=0;
     this.precio=0;
+    this.urlFoto=null;
 }
 
 

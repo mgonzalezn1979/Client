@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
+function Popup({ mensaje }) { 
 
-function Popup({message}){
-return(
-    <>
-    <div>
-        <h3>{message}</h3>
-        
+
+
+  return (
+
+
+     <div class="alert alert-primary" role="alert" id="popup_mensajeria" hidden={mensaje==''?true:false}>
+      {mensaje}
+   
     </div>
-    </>
-)
+  );
+
+
 }
 export default Popup;
+{/* <div class="alert alert-primary" role="alert" hidden={!visible} ></div> */}

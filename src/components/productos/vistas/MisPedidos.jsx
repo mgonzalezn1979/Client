@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect,useContext } from "react";
-import Header from "./Header";
+import Header from "../../Header";
 import Cookies from "js-cookies";
 
 import axios from "axios";
@@ -65,7 +65,7 @@ function MisPedidos() {
         ) : (
           <div>
             {listado.map((producto) => {
-              return <div key={producto.ID}><PedidoDetalle detalle={producto} ID_Pedido={producto.ID}  /></div>;
+              return <div key={producto.ID}><PedidoDetalle detalle={producto} ID_Pedido={producto.ID} urlFoto={producto.urlFoto} /></div>;
             })}
           </div>
         )}

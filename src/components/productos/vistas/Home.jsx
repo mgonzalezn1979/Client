@@ -2,23 +2,20 @@ import React from "react";
 // import ReactDOM} from "react-dom";
 import { useState, useEffect} from "react";
 import Cookies from "js-cookies";
-import Header from "./Header";
+import Header from "../../Header";
 import Footer from "./Footer";
 import axios from "axios";
 import Producto from "./Producto";
 import { Pedido } from "../../../class/Pedido";
 import { Context } from "../../contexto/Context";;
+import lateralder from "../../../assets/imagenes/lateral_decorativo_cafe_matcha.jpg"
  
 import { useContext } from "react";
 
 
 function Home() {
   
-  //const [pedidoActual, setPedidoActual] = useState(new Pedido());
   const {agregarProducto, pedido, setPedido}=useContext(Context);
-  //const [sesion, setSesion] = useState();
-
-
   const [listado, setListado] = useState([]);
   const [status, setStatus] =   useState(2);
   const [filtro, setFiltro] = useState(-1);
@@ -68,48 +65,74 @@ function Home() {
   return (
     <>
         <Header />
-        <p>Home con sesion iniciada</p>
- 
-        <></>
-        <div>
-          <button onClick={() => setFiltro(obtieneIDtipoProducto("Bebidas"))}>
+       
+        <div class="container-fluid ">
+        <div class="row">
+  
+          <div class="col-lg-12 center"><br/>
+<p class="descripcion" >Elige tus productos</p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-1">
+            <p></p>
+          </div>
+          <div class="col-lg-2">
+          <button class="boton_estandar" onClick={() => setFiltro(obtieneIDtipoProducto("Bebidas"))}>
             Bebidas
           </button>
+          </div>
+          <div class="col-lg-2">
 
-          <button onClick={() => setFiltro(obtieneIDtipoProducto("Comida"))}>
+          <button class="boton_estandar"  onClick={() => setFiltro(obtieneIDtipoProducto("Comida"))}>
             Comida
           </button>
+          </div>
+          <div class="col-lg-2">
 
-          <button
+          <button class="boton_estandar" 
             onClick={() => setFiltro(obtieneIDtipoProducto("Merchandise"))}
           >
             Merchandise
           </button>
+          </div>
+          <div class="col-lg-2">
 
-          <button onClick={() => setFiltro(-1)}>All</button>
+          <button class="boton_estandar"  onClick={() => setFiltro(-1)}>Todo</button>
+          </div>
+          <div class="col-lg-1">
+            <p></p>
+          </div>
+
         </div>
-        <div>
-          <p>Listado de productos</p>
+        <div class="row align-items-center">
+        
+        <div class="col-lg-12">
 
           {listado.length == 0 ? (
             <p>No hay productos</p>
           ) : (
-            <ul>
+            
+            <>
               {listado.map((producto) => {
                 if (producto.tipoProducto == filtro)
-                  return <li key={producto.ID}><Producto producto={producto} isAdmin={false} /></li>;
-                else if (filtro == -1) return <li key={producto.ID}><Producto producto={producto} /></li>;
+                  return <Producto producto={producto} isAdmin={false} />;
+                else if (filtro == -1) return <Producto producto={producto} />;
               })}
-            </ul>
+            </>
+            
+            
+           
           )}
-        </div>
+           </div>
 
-        <div>
-          <p></p>
         </div>
+        </div>
+         
 
-        <Footer/>
         
+          <Footer/>
     </>
   );
 }

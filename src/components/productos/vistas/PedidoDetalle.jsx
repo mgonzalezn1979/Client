@@ -19,15 +19,9 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
   } = useContext(Context);
 
   const [visible, setVisible] = useState(true);
-
-  
   const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-
-
-  //   const [idPedido, setIdPedido] = useState(0);
   console.log("pedido detalle " + detalle);
-  //   setIdPedido(ID_Pedido);
-  // function handleStatus()
+
   const handleStatus = () => {
     if (visible) {
       setVisible(false);
@@ -56,20 +50,20 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
   const handleModificarPedido = () => {
     //hacer una wea marciana donde se cargue un pedido como si fuera nuevo
     limpiarCarrito();
- 
      
     let pedidoModificado = new Pedido();
     pedidoModificado.ID = ID_Pedido;
     pedidoModificado.total = detalle.TOTAL;
     pedidoModificado.cantidadProductos = 0;
     pedidoModificado.fecha = detalle.FECHA;
-    pedidoModificado.WEA="";
+ 
     detalle.items.forEach((item) => {
       const cantidad = item.cantidad;
       const ID_PRODUCTO = item.ID;
       const nombre = item.nombre;
       const precio = item.precio;
       const subtotal = item.subtotal;
+      const urlFoto = item.urlFoto;
       pedidoModificado.cantidadProductos += cantidad;
       pedidoModificado.total = +subtotal;
 
@@ -80,6 +74,7 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
       itemPed.total=subtotal;
       itemPed.ID=ID_PRODUCTO;
       itemPed.precio=precio;
+      itemPed.urlFoto=urlFoto;
       pedidoModificado.items.push(itemPed);       
     
     });

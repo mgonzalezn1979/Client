@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ProductoItemAdmin from "./ProductoItemAdmin";
-import Header from "../productos/vistas/Header";
+import Header from "../Header";
 import { Context } from "../contexto/Context";
 import { useContext } from "react";
 
@@ -122,6 +122,10 @@ function AdminProductos() {
         <p>Lista de productos</p>
         <button
           onClick={() => {
+            setFormDescripcion("");
+            setFormNombre("");
+            setFormPrecio(0);
+            setFormTipoProducto('1');
             setVisibleCrear(!visibleCrear);
           }}
         >
@@ -192,7 +196,7 @@ function AdminProductos() {
           <input type="submit" value="Crear" />
         </form>
         <button
-          onClick={() => {
+          onClick={() => {           
             setVisibleCrear(!visibleCrear);
           }}
         >

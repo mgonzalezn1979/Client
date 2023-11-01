@@ -5,6 +5,10 @@ import axios from "axios";
 
 function Register(){
 
+    const [noInvokando, setNoInvokando] =  useState(true);
+    const [mensajeria, setMensajeria] = useState("");
+
+    
     const [error, setError] = useState({
         status:0,
         message:''
@@ -22,6 +26,7 @@ function Register(){
 
 function handleChange(e)
 {
+    setNoInvokando(false);
     setError({status:0,message:''});
     const {name,value} = e.target;
     console.log('name:'+name+' value:'+value);
@@ -34,11 +39,13 @@ function handleChange(e)
 }
 
 function handleSubmit(e){
+    setNoInvokando(false);
     e.preventDefault();
     const validado = validaFormulario(formData);
     if(validado)
     {
         console.log('llamar api register');
+        setNoInvokando(true);
     
         //formulario ok
         axios.post('http://localhost:3000/api/acceso/register',{
@@ -54,6 +61,7 @@ function handleSubmit(e){
         }
 
         ).then(res=>{
+            setNoInvokando(false);
             console.log('respuesta de api');
             const respuesta = res.data;
             if(respuesta.status==0)
@@ -66,6 +74,7 @@ function handleSubmit(e){
         }
         ).catch(error=>{
 
+            setNoInvokando(false);
             console.log('error en api');
             setError({status:1, message:error});
         }
@@ -110,30 +119,21 @@ function validaFormulario(form)
         setError({status:1, message:"Contraseñas no coinciden"});
         return false;
     }
-
-
-
-    return true;
-
+     return true;
 }
 
 
 
 return(
-    <>
+    <div class="container-fluid">  
 
-   {
-    error.status==0?null:
-   
-    
-    <Popup message={error.message}/>
-   }
-    <div>
-       
+ 
 
-
+    <div class="row">
+    <div class="col-lg-3">
     </div>
 
+    <div class="col-lg-6">
     <h1>Registro nuevo usuario</h1>
     <form onSubmit={handleSubmit}>
 
@@ -170,10 +170,30 @@ return(
     <br/>
     <br/>
     <input type="submit" value="Registrar" />
+
+
+    {(noInvokando)?<input type="submit" value="Registrar" class="btn btn-primary" />:
+              <button class="btn btn-primary" type="button" disabled>
+              <span
+                class="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+              Registrando...
+            </button>
+              }     
     <br/>
     </form>
-    
-    </>
+    </div>
+    <div class="col-lg-3">
+    </div>
+    </div>    
+    </div>
 )
 }
+
 export default Register;
+
+
+// {error.status!=0?<div class="row" ><div class="col-lg-4"></div><Popup message={error.message}/><div></div>:null}
+  

@@ -34,17 +34,27 @@ const navigate = useNavigate();
     }
     return(
         <>
-        <div>
+        <div class="footer">
             
            
         {pedido.cantidadProductos==0 ? (
             <p>No hay pedido</p>
           ) : (
-            <div>
-               
-            <p>Total: { (Math.round(pedido.total * 100) / 100).toFixed(2)}  €</p>
-            <p>Cantidad productos: {pedido.cantidadProductos}</p>
-            <button onClick ={handleVerPedido}>Ver pedido</button>   
+            <div class="container fluid">
+              <div class="row">
+            <div class="col-lg-8 ">
+              <div class="">
+              <p class="texto_descripcion">Total: { (Math.round(pedido.total * 100) / 100).toFixed(2)}  € 
+                
+            Cantidad productos: {pedido.cantidadProductos}
+             </p>
+            </div>
+            </div>
+            <div class="col-lg-3 ">
+            <button class="boton_estandar" onClick ={handleVerPedido}>Ver pedido</button>   
+            
+              </div>
+            </div>
             </div>
           )}
             

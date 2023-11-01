@@ -1,0 +1,258 @@
+body{
+font-family: "Monaco", monospace;
+font-size:1.85rem;
+background-color: #fcd7ad;
+background-image: url(/client/Client/src/assets/imagenes/fondoprincipal.jpg)
+
+}
+
+h1 {
+  text-align: center;
+  color: black; 
+  margin: 0 0 40px;
+}
+
+
+h5 {
+  text-align: center;
+  color: black; 
+  margin: 0 0 40px;
+}
+
+.fuenteChica{
+  font-family: "Monaco", monospace;
+  font-size:1rem;
+}
+
+.fuenteEstandar{
+  font-family: "Monaco", monospace;
+  font-size:1.5rem;
+}
+
+.color_1{
+  color:#a57548;
+}
+.color_2{
+  color:#fcd7ad;
+}
+
+.color_3
+{ 
+  color:#f6c28b;
+}
+
+.color_4{
+  color:#5296A5;
+}
+
+.color_5{
+  color:82ddf0;
+}
+
+.fuenteGrande{
+  font-family: "Monaco", monospace;
+  font-size:2rem;
+}
+
+.fuenteGrandeXL{
+  font-family: "Monaco", monospace;
+  font-size:3rem;
+}
+
+p.normal {
+    font-style: normal;
+    font-size:2rem;
+  }
+
+
+
+  input { 
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    background: none;
+    background-image: none;
+    background-color: white;
+    border: 1px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    color: black;
+    border-radius: 3rem;
+    transition: all 0.5s ease;
+    border-radius: 0.6rem !important;   
+}
+
+
+
+.inicio_sesion{
+  opacity:0.8;
+
+}
+
+.boton_redondo{
+
+}
+
+.contenedor_titulos{
+  background-color: #f6c28b;
+  text-align:center;
+  font-size: 2rem;
+  opacity:0.9;
+  border-radius: 2rem;
+  border: 5px solid #5296A5;
+  position: absolute;
+
+  background-color: orange;
+  position: absolute;
+
+  padding: 5rem 5rem 4rem 5rem;
+
+}
+
+.boton_superior{
+
+  background-color: #f6c28b;
+  text-align:center;
+  font-size: 2rem;
+  opacity:0.9;
+  border-radius: 2rem;
+  border: 5px solid white;
+  background-color: rgba(178, 224, 109, 0.315);
+  
+
+
+  padding: 5rem 5rem 4rem 5rem;
+
+}
+
+
+.icono{
+ 
+    height: 45px;
+    width: 45px;
+ 
+}
+
+
+.admin_boton
+{
+  background-color: red !important;
+  border-color: white;
+  height: 100px;
+  width: 100px;  
+}
+.boton_estandar:hover{
+  background-color: white;
+  color:#82ddf0;
+
+}
+.boton_estandar{ 
+    display: block;
+    width: 12rem !important;
+    height: 3rem;   
+    padding: 5px 10px;
+    background: scroll;
+    background-image: none;
+    background-color: #5296A5; 
+    border-top: 1rem;
+    border-left: 1rem;
+    border-right: 1rem;
+    border-bottom: 1rem;    
+    color: #fcd7ad;
+    font-size:x-large !important;
+    border-radius: 13rem;
+    transition: all 0.5s ease;
+ 
+}
+
+
+.boton_signos{ 
+  display: block;
+  width: 1rem !important;
+  height: 1rem !important;
+  padding:2rem;
+  font-size:x-large;
+  background: scroll;
+  background-image: none;
+  background-color: crimson; 
+  border-top: 1rem;
+  border-left: 1rem;
+  border-right: 1rem;
+  border-bottom: 1rem; 
+  font-weight: bold;;   
+  color: #fcd7ad;
+  font-size:x-large !important;
+  border-radius: 19rem; 
+  transition: all 0.5s ease; 
+}
+
+.boton_signos:hover{
+  background-color: burlywood; 
+}
+
+.card_producto{
+  width:12rem;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+footer {
+  width: 100%;
+  height: 81px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+body {
+  margin: 0;
+  margin-bottom: 40px;
+}
+
+#wrapper {
+  min-height: 100%;
+  position: relative;
+}
+
+.imagen_producto{
+  width:300px;
+  height:300px;
+  border-radius: 3rem;
+}
+
+
+.listado{
+  padding-top:2.5rem;
+  padding-right:1rem;
+  padding-left:2rem;
+  padding-bottom:2.5rem;
+margin-top: 2rem;
+margin-bottom: 1rem;
+margin-right: 0.5rem;
+margin-left: 3.5rem;
+background-color: antiquewhite;
+border-radius: 5rem;
+
+}
+
+
+.texto_nombre{
+  font-size: 2.5rem;
+ text-align:center !important;
+  margin: 0;
+ 
+}
+
+.texto_descripcion{
+  font-size: 2rem;;
+}
+
+.center{
+  text-align:center;
+  vertical-align: bottom;
+}

@@ -27,9 +27,7 @@ export class Pedido{
                 item.precio = obj.items[i].precio;
                 item.total = obj.items[i].total;
                 item.cantidad = obj.items[i].cantidad;
-                // item.cantidadProductos = obj.ItemPedido[i].cantidadProductos;
-
-
+                item.urlFoto=obj.items[i].urlFoto;
                 ped.items.push(item);
             }
         }

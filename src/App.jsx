@@ -14,14 +14,17 @@ import { Pedido } from "./class/Pedido";
 import { ItemPedido } from "./class/ItemPedido";
 import { Context } from "./components/contexto/Context";
 import VerPedido from "./components/productos/vistas/VerPedido";
-import Header from "./components/productos/vistas/Header";
+import Header from "./components/Header";
 import MisPedidos from "./components/productos/vistas/MisPedidos";
 import AdminProductos from "./components/mantenedor/AdminProductos";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import './styles/principal.css';
+import BannerSuperior from "./components/BannerSuperior";
 
 function App() {
+  const THIS_URL= "http://localhost:3000/";
    const [pedido,setPedido] = useState(new Pedido());
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();
@@ -92,7 +95,7 @@ function App() {
     actualizaResumen();
     }
 
-  function agregarProducto(ID, nombre, precio)
+  function agregarProducto(ID, nombre, precio, urlFoto)
   {
       
       let item = getProducto(ID);
@@ -105,6 +108,11 @@ function App() {
           item.total=precio;
           item.precio=precio;
           item.cantidad=1;
+          item.urlFoto=null;
+          if(urlFoto){
+            item.urlFoto=urlFoto;            
+          }
+          
           pedido.items.push(item);//agrega item nuevo
       }
       else{
@@ -196,7 +204,8 @@ function App() {
 
   
     return (
-    <div>
+    <div id="wrapper">
+
  
 
       <Context.Provider
@@ -209,6 +218,7 @@ function App() {
           tiposProducto
          }}
       >
+      
        
         <Router>
           <Routes>

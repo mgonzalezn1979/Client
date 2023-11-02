@@ -1,3 +1,7 @@
+/**Funcionalidad principal BannerEncabezado:
+ * Permite dibujar un header cuando no se ha iniciado sesion
+ * 
+ * / */
 import React from "react";
 import iconoHome from "../assets/imagenes/home.png";
 import cesta from "../assets/imagenes/cesta.png";

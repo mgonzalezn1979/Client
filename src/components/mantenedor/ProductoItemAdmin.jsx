@@ -1,13 +1,19 @@
+/*
+Funcinalidad principal ProductoItemAdmin:
+
+solo disponible en  modo administrador 
+permite
+elminar o modificar producto
+*/
 import React from "react";
 import { useState } from "react";
-import Producto from "../productos/vistas/Producto";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../contexto/Context";
 import { useContext } from "react";
 
 function ProductoItemAdmin(producto) {
-  const navigate = useNavigate();
+
   const { tiposProducto, listado, setListado } = useContext(Context);
 
   const [mensajeria, setMensajeria] = useState("");
@@ -17,46 +23,89 @@ function ProductoItemAdmin(producto) {
   const [descripcion, setDescripcion] = useState(producto.producto.Descripcion);
   const [precio, setPrecio] = useState(producto.producto.precio);
   const [tipo, setTipo] = useState(producto.producto.tipoProducto);
-
   const [nombre, setNombre] = useState(producto.producto.Nombre);
-
   const [imagen, setImagen] = useState();
-  const [imagenUrl, setImagenUrl] = useState();
-
-  const THIS_URL= "http://localhost:3000/";
+  const [mensajeriaLocal, setMensajeriaLocal] = useState(""); 
 
   function handleImagenCambio(e) {
     setImagen(e.target.files[0]);
+  } 
+/** valida formulario modificacion */
+  function valida(){
+
+    setMensajeriaLocal("");    
+    if(imagen==null){
+      setMensajeriaLocal("Debe ingresar imagen");
+      return false;
+    }
+    const evalueNombre = /^[a-zA-Z0-9 %]{2,20}$/; //2 a 20 carcteres
+    const evalueDesc = /^[a-zA-Z0-9 %]{2,50}$/; //2 a 20 carcteres
+     
+    if (!evalueNombre.test(nombre)) {
+      setMensajeriaLocal(
+        "Debe ingresar un nombre valido (3 a 20 caracters maximo)"
+      );
+      return false;
+    }  
+
+    if (!evalueDesc.test(descripcion)) {
+      setMensajeriaLocal(
+        "Debe ingresar descripcion valida (3 a 20 caracters maximo)"
+      );
+      return false;
+    }  
+
+    if (tipo==undefined) {      
+      setMensajeriaLocal("Debe seleccionar tipo de producto");
+      return false;
+    }
+
+    let tipovalido = false;
+    tiposProducto.map(item=>
+      {
+        if(item.ID==tipo) {
+      tipovalido = true;
+      
+    }
+    });
+    
+    if(!tipovalido){
+      setMensajeriaLocal("Debe seleccionar tipo de producto");
+      return false;
+    }
+    return true;
+
   }
 
-
+  /** valida formato de precio */
   const validaPrecio = (precio) => {
-    setMensajeria("");
+    setMensajeriaLocal("");
     const patternPrecio = /^[0-9]+([.][0-9]+)?$/;
     if (patternPrecio.test(precio)) {
       console.log("precio valido " + precio);
       return true;
     } else {
       console.log("precio no valido " + precio);
-      setMensajeria("Precio no valido");
+      setMensajeriaLocal("Precio no valido");
       return false;
     }
   };
 
+  /** valida tipo de producto */
+
   const validaTipo = (tipo) => {
-    setMensajeria("");
+    setMensajeriaLocal("");
     if (tipo.trim() == "") { 
-      setMensajeria("Debe seleccionar tipo de producto");
+      setMensajeriaLocal("Debe seleccionar tipo de producto");
       return false;
     } else return true;
   };
  
-  function handleEliminar() {
-    setMensajeria("");
-    const res = alert("Está seguro que quiere eliminar este producto?");
-    console.log(res);
+  /** funcion que permite eliminar un producto */
+  function handleEliminar() {    
+    setMensajeria("");    
 
-    if (true) {
+    if (confirm("Está seguro que quiere eliminar este producto?")) {
       console.log("ID A ELIMINAR ES :" + ID);
 
       axios
@@ -64,39 +113,41 @@ function ProductoItemAdmin(producto) {
         .then((data) => {
           console.log("invoko a api");
           const status = data.data.status;
-          if (status == 0) {
-            alert("Producto eliminado correctamente");
+          if (status == 0) {                      
+            setMensajeria("Producto eliminado correctamente");
             //hay que eliminar producto del array de producitos en state de listado
+            
+           setListado(oldValues => {
+            return oldValues.filter(item => item.ID !== ID)
+          })
 
-            setListado(listado.filter((item) => item.ID != ID));
-
-            //navigate("/adminProductos");
-          } else {
-            alert("Error al eliminar producto de la base datos");
+            
+          } else {            
+            setMensajeria("Error al eliminar producto");
           }
         })
         .catch((error) => {
-          console.log(error);
-          console.log("error al eliminar producto");
+          console.log(error);          
+          setMensajeria("error al eliminar producto");
         });
-    }
+    }else{    
+      setMensajeria("");
   }
-
+  }
+  /** modifica flag de permite mostrar o no el formulario de modificacion */
   const handleModificar = () => {
     setMensajeria("");
     console.log("estadomodificar:" + estadoModificar);
     setEstadoModificar(!estadoModificar);
   };
-  const handleValidarModificacion = () => {
-    setMensajeria("");
-    console.log("validarModificacion");
-  };
 
+  /** Valida formulario  */
   const handleValidar = (e) => {
+    console.log("valida al modificar");
     setMensajeria("");
     e.preventDefault();
-8
-    if(validaPrecio() && validaTipo()){
+
+    if(validaPrecio(precio) && valida()){
     console.log("handleValidar");
     console.log("tipo producto es " + tipo);
 
@@ -106,15 +157,16 @@ function ProductoItemAdmin(producto) {
     formData.append("descripcion", descripcion);
     formData.append("tipoProducto", tipo);
     formData.append("precio", precio);
-    formData.append("descuento", 0);
 
     //LLAMAR APi put para actualizar
     axios
       .put("http://localhost:3000/api/productos/producto/" + ID, formData)
       .then((data) => {
         const status = data.data.status;
-        if (status == 0) {
-          alert("modificado correctamente");
+        if (status == 0) {          
+
+          setMensajeria("Modificado Correctamente");
+          setMensajeriaLocal("");
           let actual = listado;
           const index = listado.findIndex(x=>x.ID === ID);
           
@@ -137,17 +189,11 @@ function ProductoItemAdmin(producto) {
     }
   };
 
-  function handleChangeNombre(value) {
-    setMensajeria("");
-    setNombre(value);
-    console.log("pasa por handlechangenombre "+mensajeria);
-  }
-
   return (
     <div class="row listado"> 
       <p class="texto_nombre">{producto.producto.Nombre}</p>
-      <div class="alert alert-primary popup" role="danger" id="popup_mensajeria" hidden={mensajeria==''?true:false}>
-      {mensajeria}
+      <div class="alert alert-primary popup" role="danger" id="popup_mensajeria" hidden={mensajeriaLocal==''?true:false}>
+      {mensajeriaLocal}
    
     </div>
       
@@ -174,44 +220,51 @@ function ProductoItemAdmin(producto) {
       </div>
 
       {estadoModificar ? (
+        <div class="container ">
         
           <form onSubmit={handleValidar}>
-            <div class="col-lg-1"> 
+            <div class="row admin_crear">
+            <div class="col-lg-2"> 
             <label htmlFor="nombre">Nombre:</label>
             </div>
-            <div class="col-lg-6"> 
+            <div class="col-lg-5"> 
             <input
               type="text"
               value={nombre}
               onChange={(e) => {
                 setNombre(e.target.value);
                 setMensajeria("");
+                setMensajeriaLocal("");
               }}
             ></input>
             </div>
-            <div class="col-lg-1"> 
+            </div>
+            <div class="row admin_crear">
+            <div class="col-lg-2"> 
             <label htmlFor="precio">Precio:</label></div>
-            <div class="col-lg-5"> 
+            <div class="col-lg-2"> 
             <input
               type="text"
               value={precio}
               onChange={(e) => {
                 setPrecio(e.target.value);
                 setMensajeria("");
+                setMensajeriaLocal("");
               }}
             ></input></div>
-            
-            <div class="col-lg-1">
-
+            </div>
+            <div class="row admin_crear" >
+            <div class="col-lg-2">
             <label htmlFor="tipo">Tipo:</label>
             </div>
-            <div class="col-lg-11">
+            <div class="col-lg-2">
             <select
               id="tipoProducto "
               onChange={(e) => {
                 setMensajeria("");
                 setTipo(e.target.value);
                 validaTipo(e.target.value);
+                setMensajeriaLocal("");
               }}
             >
               {tiposProducto.map((item) => {
@@ -224,39 +277,46 @@ function ProductoItemAdmin(producto) {
               })}
             </select>
             </div>
-            <div class="col-lg-1"> 
+            </div>
+            <div class="row admin_crear" >
+            <div class="col-lg-2"> 
             <label htmlFor="descripcion">Descripcion:</label>
             </div>
-            <div class="col-lg-11"> 
+            <div class="col-lg-10"> 
             <input
               type="text"
               value={descripcion}
               onChange={(e) => {
                 setDescripcion(e.target.value);
                 setMensajeria("");
+                setMensajeriaLocal("");
               }}
             ></input>
             </div>
-
-            <div class="col-lg-1"> 
+            </div>
+            <div class="row admin_crear" >
+            <div class="col-lg-2"> 
             <label htmlFor="imagen">Imagen</label></div>
-            <div class="col-lg-11"> 
+            <div class="col-lg-4"> 
             <input class="boton_estandar_imagen"
               type="file"
               name="imagen"
-              id="iamgen"
+              id="imagen"
               accept="image/*"
               onChange={handleImagenCambio}
             /></div>
-            <div clas="col-lg-1">
+            </div>
+            <div class="row admin_crear" >
+            <div clas="col-lg-3"></div>
+            <div clas="col-lg-3">
             <input class="boton_estandar" type="submit" value="Confirmar" />
-            {estadoModificar ? (
-          <button class="boton_estandar"  onClick={handleModificar}>
-            Anular
-          </button>
-        ) : null}
+            <button class="boton_estandar" onClick={()=>{setEstadoModificar(false)}} >Volver</button>
+
+            
+        </div>
         </div>
           </form>
+          </div>
       
       ) : null}
 

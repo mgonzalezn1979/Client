@@ -1,9 +1,6 @@
 body{
 font-family: "Monaco", monospace;
-font-size:1.85rem;
 background-color: #fcd7ad;
-
-
 }
 
 .imagen_checked{
@@ -11,7 +8,6 @@ background-color: #fcd7ad;
   height:4rem;
   margin-top:2rem;
 }
-
 
 .imagen_signos
 {
@@ -24,9 +20,6 @@ background-color: #fcd7ad;
 .texto_blanco{
   color:#fcd7ad;
 }
-
-
-
 
 .imagen_signos:hover{
   transform: scale(1.1);
@@ -58,6 +51,12 @@ h5 {
   margin: 0; 
 }
 
+.fuenteTituloDetallePedido{
+  font-family: "Monaco", monospace;
+  font-size:1rem;
+  text-align:center !important;
+  margin: 0; 
+}
 
 .texto_formulario{
   font-family: "Monaco", monospace;
@@ -76,12 +75,10 @@ h5 {
 .color_2{
   color:#fcd7ad;
 }
-
 .color_3
 { 
   color:#f6c28b;
 }
-
 .color_4{
   color:#5296A5;
 }
@@ -301,18 +298,22 @@ body {
   border-radius: 3rem;
 }
 
+.espacio_superior{
+  padding-top:1rem !important;
+  padding-bottom:1rem !important;
+}
 
 .listado2{
-  opacity:0.75;
-
-margin-top: 0.5rem;
-margin-bottom: 0.5rem;
-margin-right: 1.5rem;
-margin-left: 1.5rem;
+opacity:0.75;
+margin-top: 1rem;
+margin-bottom: 1.5rem;
+margin-right: 2.5rem;
+margin-left: 5.5rem;
+padding-bottom: 1rem;
+padding-top:1rem;
 background-color: #82ddf0;
 border-radius: 1rem;
-vertical-align: middle;
- 
+vertical-align: middle; 
 }
 
 #tabla_detalle{
@@ -325,10 +326,10 @@ vertical-align: middle;
   border-spacing: 50px 0;
 }
 .encabezado{
-  padding-top:0.1rem;
-  padding-right:0.4rem;
-  padding-left:0.4rem;
-  padding-bottom:0.1rem;
+padding-top:0.1rem;
+padding-right:0.4rem;
+padding-left:0.4rem;
+padding-bottom:0.1rem;
 margin-top: 0rem;
 margin-bottom: 0.5rem;
 margin-right: 0.5rem;
@@ -336,14 +337,20 @@ margin-left: 0.5rem;
 background-color: antiquewhite;
 border-radius: 1.5rem;
 opacity:0.85;
-
+height:5rem;
+z-index:1;
 }
+ .admin_crear{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-top:1rem;
+ }
 
 .listado{
-  padding-top:2.5rem;
-  padding-right:1rem;
-  padding-left:2rem;
-  padding-bottom:2.5rem;
+padding-top:2.5rem;
+padding-right:1rem;
+padding-left:2rem;
+padding-bottom:2.5rem;
 margin-top: 2rem;
 margin-bottom: 1rem;
 margin-right: 0.5rem;
@@ -477,3 +484,4 @@ border-radius: 5rem;
   border-radius: 3rem;
   opacity:0.8;
 }
+ 

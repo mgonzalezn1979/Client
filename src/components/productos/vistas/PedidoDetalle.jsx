@@ -1,3 +1,9 @@
+/** funcionalidad principal PedidoDetalle
+ * permite 
+ * - ver el detalle de un pedido ya realizado
+ * - modificar el pedido
+ * - eliminar el pedido *
+ * / */
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
@@ -7,23 +13,24 @@ import { ItemPedido } from "../../../class/ItemPedido";
 import { Context } from "../../contexto/Context";
 import { useContext } from "react";
 
+/** recibe como parametro el objeto detalle del pedido y su ID */
 function PedidoDetalle({ detalle, ID_Pedido }) {
   const navigate = useNavigate();
-
-  const { listadoPedidos, setListadoPedidos} = useContext(Context);
+   
+  /** elementos del contexto necesarios para operar  */
   const {
     actualizaResumen,
     limpiarCarrito,
     setMensajeria,
     setPedido,
-    setFlagCreaPedido,
+    setFlagCreaPedido,listadoPedidos,
+    setListadoPedidos
   } = useContext(Context);
 
-
+/** uso local para ocultar o mostrar contenido */
   const [visible, setVisible] = useState(true);
  
-  console.log("pedido detalle " + detalle);
-
+  /**  setea flag ocultar/ver detalle del pedido*/
   const handleStatus = () => {
     setMensajeria("");
     if (visible) {
@@ -32,34 +39,34 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
       setVisible(true);
     }
   };
-
-  const handleEliminarPedido = () => {
-    console.log("ELMINAR PEDIDO ID:" + ID_Pedido);
-    setMensajeria("ELIMINANDO PEDIDO "+ID_Pedido);
+  /** Permite eliminar un pedido
+   * invoka la api de pedidos con el id correspondiente
+   * respuesta se muestra en mensajeria popup
+   */
+  const handleEliminarPedido = () => {    
     axios
       .delete("http://localhost:3000/api/pedidos/eliminar/" + ID_Pedido)
       .then((data) => {
         console.log("eliminado?");
         console.log(data);
         navigate("/misPedidos");
-        //QUITAR DE LISTADO
+        //quita pedido de listado
         var filtrado = listadoPedidos.filter(item=>item.ID!=ID_Pedido);
         setListadoPedidos(filtrado);
-        setMensajeria("Pedido "+ID_Pedido+" eliminado correctamente");
-        listadoPedidos;
+        setMensajeria("Pedido "+ID_Pedido+" eliminado correctamente");        
       })
       .catch((error) => {
-        console.log("error al eliminar pedido id " + ID_Pedido);
+        console.log("error "+error);
         setMensajeria("Error al eliminar pedido ID:"+ID_Pedido);
       });
-
-    //llamar a axios para eliminar pedido
   };
 
+  /** Permite preprar aplicacion para modificar el pedido
+   * seteando las variables correspondientes para "cargar"
+   * el pedido en canasta */
   const handleModificarPedido = () => {
-    setMensajeria("Modificando pedido ID:"+ID_Pedido);
+     
     limpiarCarrito();
-
     let pedidoModificado = new Pedido();
     pedidoModificado.ID = ID_Pedido;
     pedidoModificado.total = detalle.TOTAL;
@@ -92,7 +99,6 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
     actualizaResumen();
     navigate("/verPedido");
   };
-
   return (
     <>
       <div class="container fluid">
@@ -101,9 +107,9 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
           <div class="col-lg-11 center">
             <table id="tabla_detalle">
               <tr>
-                <th class="fuenteEstandar">ID Pedido</th>
-                <th class="fuenteEstandar">Fecha</th>
-                <th class="fuenteEstandar">Total</th>
+                <th class="fuenteTituloDetallePedido">ID Pedido</th>
+                <th class="fuenteTituloDetallePedido">Fecha</th>
+                <th class="fuenteTituloDetallePedido">Total</th>
                 <th></th>
               </tr>
               <tr>
@@ -135,7 +141,7 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
             </table>
           </div>
         </div>
-        <div class="row listado2 " hidden={visible}>
+        <div class="row listado2" hidden={visible}>
           <div class="col-lg-1"></div>
           <div class="col-lg-2 ">
             <button class="boton_estandar" onClick={handleEliminarPedido}>

@@ -1,17 +1,33 @@
+/** funcionalidad principal MisPedidos
+ * 
+ * Permite ver la lista de pedidos generados por el usuario
+ * 
+ ******/
+
 import React from "react";
 import { useState, useEffect,useContext } from "react";
-import Header from "../../Header";
+
+/**utiliza cookies y axios para invokar api  */
 import Cookies from "js-cookies";
 import axios from "axios";
 import { Context } from "../../contexto/Context";
  
+/** componentes extenos utilizados para visualizar detalles de pedido(por pediodo)
+ * header para encabezado y popup para mensajeria  */
 import PedidoDetalle from "./PedidoDetalle";
-import Popup from "../../mensajeria/Popup";
- 
+import Header from "../../Header";
+import Popup from "../../mensajeria/Popup"; 
 
 function MisPedidos() {
+
+  /**elementos de uso global del contexto para poder operar */
   const { listadoPedidos,  setListadoPedidos, mensajeria, setMensajeria} = useContext(Context);
   
+
+  /** Permite cargar el listado de pedidos del usuario 
+   * invokando api de pedidos 
+   * listaPedidos
+   */
   useEffect(() => {
 
     setListadoPedidos([]);
@@ -42,16 +58,13 @@ function MisPedidos() {
           })
           .catch((error) => {
             console.log(error);
+            setMensajeria("Error al buscar pedidos");
           });
       } else {
         console.log("no hay sesion activa, redirige a home");
-        
-        //navigate("/");
       }
     }
-  }, []);
-
- 
+  }, []); 
 
   return (
     <div>
@@ -67,7 +80,7 @@ function MisPedidos() {
       </div>
       </div>        
         {listadoPedidos == undefined ? (
-          <p>No hay productos</p>
+          <p>No hay pedidos</p>
         ) : (
           <div>
             {listadoPedidos.map((producto) => {
@@ -75,8 +88,7 @@ function MisPedidos() {
             })}
           </div>
         )}
-      </div>
-    
+      </div>    
   );
 }
 export default MisPedidos;

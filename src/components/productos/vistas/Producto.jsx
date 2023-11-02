@@ -1,19 +1,36 @@
+/** Funcionalidad principal Producto:
+ * permite
+ * - visualizar contenido de producto 
+ * - agregar producto a la canasta
+ * 
+ * al iniciar recibe como parametro el objeto producto 
+ * sobre el cual despliega contenido
+ */
+
 import React from "react";
-import Cookies from "js-cookies";
+
+/** utiliza elementos globales del contexto  */
 import { useContext, useEffect, useState } from "react";
 import { Context } from "../../contexto/Context";
+/** icono que se muestra al agregar producto */
 import checkedImage from "../../../assets/imagenes/checked.png";
- 
 
 function Producto(producto) {
-  const { agregarProducto, pedido } = useContext(Context);
+    /** utiliza del contexto, funcion para agregar producto a la canasta */
+  const { agregarProducto } = useContext(Context);
+    /** flag que muestra o no el icono check al agregar producto */
   const [check, setCheck] = useState(false);
 
-  useEffect(() => {
-    console.log("objeto producto");
-    console.log(producto);
-  }, []);
+//   useEffect(() => {
+//     console.log("objeto producto");
+//     console.log(producto);
+//   }, []);
 
+/** Permite agregar producto a a canasta, 
+ * pasa como parametros de uso local
+ * las propiedades del producto
+ * a la funcion de agregar producto proveniente del contexto global
+ */
   function handleAgregarProducto() {
     setCheck(true);
     agregarProducto(

@@ -1,13 +1,21 @@
+/** funcionalidad principal Login:
+ * Permite ingresar credenciales al sitio para iniciar sesion
+ */
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+/** utiliza cookies e invoka api */
 import axios from "axios";
 import Cookies from "js-cookies";
+
+/** Permite operar con los elementos globales declarados en contexto */
 import { useContext } from "react";
 import { Context } from "../contexto/Context";
+
+/** Permite despliegue de mensajeria */
 import Popup from "../mensajeria/Popup";
-// import imagenLateral1 from "../../assets/imagenes/lateral_decorativo_cafe_matcha.jpg";
-// import imagenLateral2 from "../../assets/imagenes/lateral_mesa_macaron.jpg";
+/** dibuja barra superior */
 import BannerSuperior from "../BannerSuperior";
 
 function Login() {
@@ -15,19 +23,25 @@ function Login() {
     emailUsername: "",
     password: "",
   });
-
+  /** estados locales  */
   const [mensajeria, setMensajeria] = useState("");
-  const [noInvokando, setNoInvokando] =  useState(true);
+  const [noInvokando, setNoInvokando] = useState(true);
 
   const navigate = useNavigate();
 
-  const { sesion, setSesion, setTipoUsuario } = useContext(Context);
+  /** estados globales */
+  const { setSesion, setTipoUsuario } = useContext(Context);
 
+  /** Funcion que permite validar el formulario del inicio de
+   * sesion invokando la api de login
+   * De estar todo ok redirige a pagina principal o home con
+   * la sesion iniciada (cookie)
+   * si hay algun problema la mensajeria mostrara respuesta de api
+   */
   function handleSubmit(e) {
     setMensajeria("");
     e.preventDefault();
     setNoInvokando(false);
-
     axios
       .post("http://localhost:3000/api/acceso/login", {
         emailUsername: formData.emailUsername,
@@ -43,8 +57,7 @@ function Login() {
             Cookies.setItem("sesion", JSON.stringify(res.data.usuario), {
               expires: 1,
             });
-            setSesion(res.data.usuario);
-            console.log("va a grabar en cookie el username");
+            setSesion(res.data.usuario);            
             setTipoUsuario(res.data.usuario.tipoUsuario);
             navigate("/");
             break;
@@ -70,8 +83,11 @@ function Login() {
       });
   }
 
+  /** permite la persistencia de los estados locales 
+   * al cambiar un valor
+   * usuario, contraseña
+   */
   function handleChange(e) {
-
     setMensajeria("");
     const { name, value } = e.target;
     setFormData({
@@ -80,35 +96,30 @@ function Login() {
     });
   }
   return (
-   
     <div class="container-fluid">
-       <BannerSuperior />
+      <BannerSuperior />
 
       <div class="row">
-        <div class="col-lg-3">
-          
-        </div>
+        <div class="col-lg-3"></div>
 
         <div class="col-lg-5 listado capa_opacidad_titulo">
-          <br/>
+          <br />
           {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
           <center>
- <p class="fuenteGrande">Bienvenido</p><br/></center>
-        <p class="fuenteEstandar">
-          Para poder continuar favor ingresa tu nombre de usuario ó correo electrónico y la contraseña</p>
-
- 
-  
-           
-          <br /><br />
-            <form onSubmit={handleSubmit}>
-              <div class="row">
-                 
+            <p class="fuenteGrande">Bienvenido</p>
+            <br />
+          </center>
+          <p class="fuenteEstandar">
+            Para poder continuar favor ingresa tu nombre de usuario ó correo
+            electrónico y la contraseña
+          </p>
+          <br />
+          <br />
+          <form onSubmit={handleSubmit}>
+            <div class="row">
               <label class="fuenteChica" htmlFor="ingreso">
                 Email ó usuario(username):
               </label>
-              
-              
               <input
                 type="text"
                 class="input_form login_form_input"
@@ -117,55 +128,54 @@ function Login() {
                 onChange={handleChange}
               />
               <br />
-              <label class="fuenteChica" htmlFor="password">Password:</label>
+              <label class="fuenteChica" htmlFor="password">
+                Password:
+              </label>
               <input
                 class="input_form login_form_input"
                 type="password"
                 name="password"
                 id="password"
                 onChange={handleChange}
-              /><br/>
-             
-             
+              />
+              <br />
 
               <br />
-              {(noInvokando)?<input type="submit" value="Ingresar" class="boton_estandar" />:
-              <button class="boton_estandar" type="button" disabled>
-              <span
-                class="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-              Ingresando...
-            </button>
-              }
-              <button class="boton_estandar" onClick={()=>{
-            navigate("/register");
-          }} >Registrar</button>        
-</div>
- 
-            </form>
-            
-           
-            <center>
-            
-          <p class="fuenteChica">
-            Si no estas registrado haz clic en registrar</p>
-            </center>
-         </div> 
+              {noInvokando ? (
+                <input type="submit" value="Ingresar" class="boton_estandar" />
+              ) : (
+                <button class="boton_estandar" type="button" disabled>
+                  <span
+                    class="spinner-border spinner-border-sm"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Ingresando...
+                </button>
+              )}
+              <button
+                class="boton_estandar"
+                onClick={() => {
+                  navigate("/register");
+                }}
+              >
+                Registrar
+              </button>
+            </div>
+          </form>
 
-         <div class="col-lg-3">
-       
-        </div></div>
+          <center>
+            <p class="fuenteChica">
+              Si no estas registrado haz clic en registrar
+            </p>
+          </center>
+        </div>
 
-         <div class="centro_horizontal row">
-          
-                   
-        </div>
-        </div>
-        
-       
-    
+        <div class="col-lg-3"></div>
+      </div>
+
+      <div class="centro_horizontal row"></div>
+    </div>
   );
 }
 

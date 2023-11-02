@@ -1,26 +1,44 @@
+/**
+ * Funcionalidad principal:HOME
+ * Carga elementos luego de iniciar sesion correctamente
+ * estos son los header, footer
+ * y es la sección principal para seleccionar productos
+ * 
+ */
+
 import React from "react";
-// import ReactDOM} from "react-dom";
 import { useState, useEffect } from "react";
-import Cookies from "js-cookies";
+import axios from "axios";
+
+/** Componentes utilizados  */
 import Header from "../../Header";
 import Footer from "./Footer";
-import axios from "axios";
-import Producto from "./Producto";
-import { Pedido } from "../../../class/Pedido";
-import { Context } from "../../contexto/Context";
-import lateralder from "../../../assets/imagenes/lateral_decorativo_cafe_matcha.jpg";
 import Popup from "../../mensajeria/Popup";
+import Producto from "./Producto";
+
+/** Utiliza componentes globales del contexto  */
+import { Context } from "../../contexto/Context";
 import { useContext } from "react";
 
 function Home() {
-  const { mensajeria, setMensajeria, agregarProducto, pedido, setPedido,flagCreaPedido, pedidoPorConfirmar } = useContext(Context);
+
+  /** variables o estados de contexto uso global en mensajeria popup */
+  const { mensajeria, setMensajeria } = useContext(Context);
+
+  /** estados, variables y funciones de uso local */
   const [listado, setListado] = useState([]);
   const [status, setStatus] = useState(2);
   const [filtro, setFiltro] = useState(-1);
   const [tiposProducto, setTiposProductos] = useState([]);
 
-  const { urlBackend_dir, setUrlBackend_dir } = useContext(Context);
+  // const { setUrlBackend_dir } = useContext(Context);
 
+  /** Funcion que permite obtener el ID del tipo 
+   * de producto seleccionado 
+   * retorna el ID o -1 en caso de no encontrarlo
+   * estos datos  de uso global y se cargan al inicio
+   * de la aplicacion y se accede mediante uso de contexto
+   * */
   function obtieneIDtipoProducto(prod) {
     console.log("obtieneIDtipoProducto");
     for (let i = 0; i < tiposProducto.length; i++) {
@@ -28,24 +46,26 @@ function Home() {
       if (prod.toString().toUpperCase() == nombre.toUpperCase()) {
         return tiposProducto[i].ID;
       }
-    }
-    console.log("no encontrado");
+    }    
     return -1;
   }
 
   useEffect(() => {
 
-    axios
-      .get("http://localhost:3000/api/parametros/getURLBackend")
-      .then((result) => {
-        console.log("url backend " + result.data.data);
-        setUrlBackend_dir(result.data.data);
-      })
-      .catch((error) => {
-        console.log("error " + error);
-        setMensajeria("Error en api");
-      });
+    // axios
+    //   .get("http://localhost:3000/api/parametros/getURLBackend")
+    //   .then((result) => {
+    //     console.log("url backend " + result.data.data);
+    //     setUrlBackend_dir(result.data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error " + error);
+    //     setMensajeria("Error en api");
+    //   });
 
+    /** Invoka a api para obtener los tipos de productos y setea uso global 
+     * mediante el contexto
+     * en caso de error muestra mensaje en compontente Popup  */
     axios
       .get("http://localhost:3000/api/productos/obtieneTiposDeProducto")
       .then((result) => {
@@ -57,7 +77,9 @@ function Home() {
         console.log(error);
         setMensajeria("Error en api");
       });
-
+/** Invoka  api para obtener listado completo de productos
+ * en caso de error muestra mensaje en compontente Popup
+ */
     axios
       .get("http://localhost:3000/api/productos/obtieneListaProductos")
       .then((result) => {
@@ -90,7 +112,7 @@ function Home() {
           <div class="col-lg-3"></div>
         </div>
 
-        <div class="row ">
+        <div class="row  espacio_superior">
           <div class="col-lg-2"></div>
           <div class="col-lg-8">
             <div class="alert alert-warning" role="alert">

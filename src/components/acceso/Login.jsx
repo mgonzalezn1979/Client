@@ -6,6 +6,9 @@ import Cookies from "js-cookies";
 import { useContext } from "react";
 import { Context } from "../contexto/Context";
 import Popup from "../mensajeria/Popup";
+// import imagenLateral1 from "../../assets/imagenes/lateral_decorativo_cafe_matcha.jpg";
+// import imagenLateral2 from "../../assets/imagenes/lateral_mesa_macaron.jpg";
+import BannerSuperior from "../BannerSuperior";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -77,27 +80,38 @@ function Login() {
     });
   }
   return (
+   
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-3"></div>
+       <BannerSuperior />
 
-        <div class="col-lg-4">
+      <div class="row">
+        <div class="col-lg-3">
+          
+        </div>
+
+        <div class="col-lg-5 listado capa_opacidad_titulo">
           <br/>
           {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
           
-<div >
-        <h5>Para poder continuar favor ingresa tu nombre de usuario ó correo electrónico y la contraseña</h5>
+ 
+        <p class="texto_descripcion">
+          Bienvenido, Para poder continuar favor ingresa tu nombre de usuario ó correo electrónico y la contraseña</p>
 
-</div>
+ 
   
-          <div class="inicio_sesion">
+           
             <br />
             <form onSubmit={handleSubmit}>
+              <div class="row">
+                 
               <label class="" htmlFor="ingreso">
                 Email ó usuario(username):
               </label>
+              
+              
               <input
                 type="text"
+                class="input_form"
                 name="emailUsername"
                 id="emailUsername"
                 onChange={handleChange}
@@ -105,17 +119,18 @@ function Login() {
               <br />
               <label htmlFor="password">Password:</label>
               <input
+                class="input_form"
                 type="password"
                 name="password"
                 id="password"
                 onChange={handleChange}
               />
-              <br />
-              <br />
+             
+             
 
               <br />
-              {(noInvokando)?<input type="submit" value="Ingresar" class="btn btn-primary" />:
-              <button class="btn btn-primary" type="button" disabled>
+              {(noInvokando)?<input type="submit" value="Ingresar" class="boton_estandar" />:
+              <button class="boton_estandar" type="button" disabled>
               <span
                 class="spinner-border spinner-border-sm"
                 role="status"
@@ -123,24 +138,32 @@ function Login() {
               ></span>
               Ingresando...
             </button>
-              }        
-
-              
+              }
+              <button class="boton_estandar" onClick={()=>{
+            navigate("/register");
+          }} >Registrar</button>        
+</div>
+ 
             </form>
+            
            
-          </div>
-          <br/><br/><br/>
+           
+         </div> 
+         <div class="col-lg-3">
+       
+        </div></div>
 
-          <div class="contenedor_titulos">
-          <h5>Si no estas registrado haz clic en registrar</h5>
-          <a class="btn btn-primary" href="register" role="button">
-            Registrar nuevo usuario
-          </a>
-          </div>
+         <div class="centro_horizontal row">
+           
+            
+          <p class="texto_blanco">
+            Si no estas registrado haz clic en registrar</p>
+                   
         </div>
-        <div class="col-lg-3"></div>
-      </div>
-    </div>
+        </div>
+        
+       
+    
   );
 }
 

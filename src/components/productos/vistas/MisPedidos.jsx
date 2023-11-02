@@ -2,20 +2,19 @@ import React from "react";
 import { useState, useEffect,useContext } from "react";
 import Header from "../../Header";
 import Cookies from "js-cookies";
-
 import axios from "axios";
 import { Context } from "../../contexto/Context";
-import { useNavigate } from "react-router-dom";
+ 
 import PedidoDetalle from "./PedidoDetalle";
+import Popup from "../../mensajeria/Popup";
+ 
 
 function MisPedidos() {
-  // const { pedido, sesion, setPedido } = useContext(Context);
-  const navigate = useNavigate();
-  const [listado, setListado] = useState([]);
-
-
+  const { listadoPedidos,  setListadoPedidos, mensajeria, setMensajeria} = useContext(Context);
+  
   useEffect(() => {
-    setListado([]);
+
+    setListadoPedidos([]);
     const sesion = Cookies.getItem("sesion");
     if (sesion != null || sesion != undefined) {
       //Si hay sesion valida entonces
@@ -30,47 +29,64 @@ function MisPedidos() {
           .then((result) => {
             console.log("lista de pedidos ");
             let resultado = Array.from(result.data.pedidos);
+            let listado  = [];
             resultado.forEach((item) => {
               listado.push(item);
             });
-            setListado(listado);
+            setListadoPedidos(listado);
             console.log(listado);
             console.log(listado.length);
+            if(listado.length==0){
+              setMensajeria("No tiene pedidos");
+            }
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
         console.log("no hay sesion activa, redirige a home");
-        navigate("/");
+        
+        //navigate("/");
       }
     }
   }, []);
 
-  // useState(() => {
-  //   console.log("cambio la mierda de listado!");
-  // }, [listado]);
+ 
 
   return (
     <div>
       <Header />
+      <div
+          class="row align-items-center"
+          hidden={mensajeria == "" ? true : false}
+        >
+          <div class="col-lg-3"></div>
+          <div class="col-lg-6">
+            {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
+          </div>
+          <div class="col-lg-3"></div>
+        </div>
+      <div class="container fluid">
+        <div class="row">
 
       <div>
-        <h1>Mis Pedidos</h1>
+        <p class="texto_blanco center">Mis Pedidos</p>
       </div>
-      <div>
-        <p>Listado de productos</p>
-        {listado == undefined ? (
+      </div>
+      </div>
+     
+        
+        {listadoPedidos == undefined ? (
           <p>No hay productos</p>
         ) : (
           <div>
-            {listado.map((producto) => {
+            {listadoPedidos.map((producto) => {
               return <div key={producto.ID}><PedidoDetalle detalle={producto} ID_Pedido={producto.ID} urlFoto={producto.urlFoto} /></div>;
             })}
           </div>
         )}
       </div>
-    </div>
+    
   );
 }
 export default MisPedidos;

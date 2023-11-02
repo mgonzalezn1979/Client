@@ -1,10 +1,14 @@
 import React from "react";
 import Cookies from "js-cookies";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../contexto/Context";
+import checkedImage from "../../../assets/imagenes/checked.png";
+ 
 
 function Producto(producto) {
   const { agregarProducto, pedido } = useContext(Context);
+  const [check, setCheck] = useState(false);
+
   console.log(pedido);
   useEffect(() => {
     console.log("objeto producto");
@@ -12,6 +16,7 @@ function Producto(producto) {
   }, []);
 
   function handleAgregarProducto() {
+    setCheck(true);
     agregarProducto(
       producto.producto.ID,
       producto.producto.Nombre,
@@ -36,15 +41,17 @@ function Producto(producto) {
               </div>
             </div>
             <div class="col-lg-4">
-            <p class="texto_nombre">{producto.producto.Nombre}</p><br/>
-            <p class="texto_descripcion"> {producto.producto.Descripcion}</p>
+            <p class="fuenteGrande">{producto.producto.Nombre}</p><br/>
+            <p class="fuenteEstandar"> {producto.producto.Descripcion}</p>
             </div>
             <div class="col-lg-3 center">
             
-              <p class="nombre"> {producto.producto.precio} €</p>
+              <p class="fuenteGrande"> {producto.producto.precio} €</p>
               <button class="boton_estandar" onClick={handleAgregarProducto}>
               Agregar
             </button>
+            <br/>
+            {check?<img src={checkedImage} class="imagen_checked" ></img>:null}
             </div>
           </div>
            

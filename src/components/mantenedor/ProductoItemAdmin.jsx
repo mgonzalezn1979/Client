@@ -10,6 +10,8 @@ function ProductoItemAdmin(producto) {
   const navigate = useNavigate();
   const { tiposProducto, listado, setListado } = useContext(Context);
 
+  const [mensajeria, setMensajeria] = useState("");
+
   const [ID, setID] = useState(producto.producto.ID);
   const [estadoModificar, setEstadoModificar] = useState(false);
   const [descripcion, setDescripcion] = useState(producto.producto.Descripcion);
@@ -27,9 +29,30 @@ function ProductoItemAdmin(producto) {
     setImagen(e.target.files[0]);
   }
 
-  // setNombre(producto.producto.Nombre);
 
+  const validaPrecio = (precio) => {
+    setMensajeria("");
+    const patternPrecio = /^[0-9]+([.][0-9]+)?$/;
+    if (patternPrecio.test(precio)) {
+      console.log("precio valido " + precio);
+      return true;
+    } else {
+      console.log("precio no valido " + precio);
+      setMensajeria("Precio no valido");
+      return false;
+    }
+  };
+
+  const validaTipo = (tipo) => {
+    setMensajeria("");
+    if (tipo.trim() == "") { 
+      setMensajeria("Debe seleccionar tipo de producto");
+      return false;
+    } else return true;
+  };
+ 
   function handleEliminar() {
+    setMensajeria("");
     const res = alert("Está seguro que quiere eliminar este producto?");
     console.log(res);
 
@@ -60,15 +83,20 @@ function ProductoItemAdmin(producto) {
   }
 
   const handleModificar = () => {
+    setMensajeria("");
     console.log("estadomodificar:" + estadoModificar);
     setEstadoModificar(!estadoModificar);
   };
   const handleValidarModificacion = () => {
+    setMensajeria("");
     console.log("validarModificacion");
   };
 
   const handleValidar = (e) => {
+    setMensajeria("");
     e.preventDefault();
+8
+    if(validaPrecio() && validaTipo()){
     console.log("handleValidar");
     console.log("tipo producto es " + tipo);
 
@@ -103,74 +131,91 @@ function ProductoItemAdmin(producto) {
         }
       })
       .catch((error) => {
-        console.log(error);
-        alert("error al modificar");
+        console.log(error);         
+        setMensajeria("Error al modificar");
       });
+    }
   };
 
   function handleChangeNombre(value) {
+    setMensajeria("");
     setNombre(value);
+    console.log("pasa por handlechangenombre "+mensajeria);
   }
 
   return (
-    <div>
-      <p></p>
-      {estadoModificar ? <h1>Mofificar producto</h1> : null}
-      <div>{producto.producto.urlFoto?<img src={producto.producto.urlFoto}></img>:null}</div>
-
-      <div>Nombre: {producto.producto.Nombre}</div>
-      <div>foto: {producto.urlFoto}</div>
-      <div>Descripcion: {producto.producto.Descripcion}</div>
-      <div>Precio: {producto.producto.precio}</div>
-      <div>
-        Tipo:{" "}
+    <div class="row listado"> 
+      <p class="texto_nombre">{producto.producto.Nombre}</p>
+      <div class="alert alert-primary popup" role="danger" id="popup_mensajeria" hidden={mensajeria==''?true:false}>
+      {mensajeria}
+   
+    </div>
+      
+      
+      <div class="col-lg-4">{producto.producto.urlFoto?<img  class="imagen_producto" src={producto.producto.urlFoto}></img>:null}</div>
+    <div class="col-lg-1"></div>
+      <div class="col-lg-5">
+    
+        <p class="texto_descripcion">{producto.producto.Descripcion}</p>
+        <p class="texto_descripcion">Precio: {producto.producto.precio} €</p>
+        <p class="texto_descripcion">  Tipo:{" "}
         {
           tiposProducto.find(
             (tipos) => tipos.ID == producto.producto.tipoProducto
           ).Nombre
-        }
+        }</p>
+          <button class="boton_estandar" onClick={handleEliminar}>Eliminar</button>
+         {!estadoModificar?<button class="boton_estandar" onClick={handleModificar}>Modificar</button>:null}
+
+      
+      </div>
+      <div>
+        
       </div>
 
       {estadoModificar ? (
-        <div>
+        
           <form onSubmit={handleValidar}>
+            <div class="col-lg-1"> 
             <label htmlFor="nombre">Nombre:</label>
+            </div>
+            <div class="col-lg-6"> 
             <input
               type="text"
               value={nombre}
               onChange={(e) => {
                 setNombre(e.target.value);
+                setMensajeria("");
               }}
             ></input>
-
-            <label htmlFor="descripcion">Descripcion:</label>
-            <input
-              type="text"
-              value={descripcion}
-              onChange={(e) => {
-                setDescripcion(e.target.value);
-              }}
-            ></input>
-
-            <label htmlFor="precio">Precio:</label>
+            </div>
+            <div class="col-lg-1"> 
+            <label htmlFor="precio">Precio:</label></div>
+            <div class="col-lg-5"> 
             <input
               type="text"
               value={precio}
               onChange={(e) => {
                 setPrecio(e.target.value);
+                setMensajeria("");
               }}
-            ></input>
+            ></input></div>
+            
+            <div class="col-lg-1">
 
             <label htmlFor="tipo">Tipo:</label>
+            </div>
+            <div class="col-lg-11">
             <select
               id="tipoProducto "
               onChange={(e) => {
+                setMensajeria("");
                 setTipo(e.target.value);
                 validaTipo(e.target.value);
               }}
             >
               {tiposProducto.map((item) => {
-                console.log(item);
+                
                 return (
                   <option key={item.ID} value={item.ID}>
                     {item.Nombre}
@@ -178,29 +223,46 @@ function ProductoItemAdmin(producto) {
                 );
               })}
             </select>
-
-            <br />
-            <label htmlFor="imagen">Imagen</label>
+            </div>
+            <div class="col-lg-1"> 
+            <label htmlFor="descripcion">Descripcion:</label>
+            </div>
+            <div class="col-lg-11"> 
             <input
+              type="text"
+              value={descripcion}
+              onChange={(e) => {
+                setDescripcion(e.target.value);
+                setMensajeria("");
+              }}
+            ></input>
+            </div>
+
+            <div class="col-lg-1"> 
+            <label htmlFor="imagen">Imagen</label></div>
+            <div class="col-lg-11"> 
+            <input class="boton_estandar_imagen"
               type="file"
               name="imagen"
               id="iamgen"
               accept="image/*"
               onChange={handleImagenCambio}
-            />
-            <input type="submit" value="Confirmar" />
-          </form>
+            /></div>
+            <div clas="col-lg-1">
+            <input class="boton_estandar" type="submit" value="Confirmar" />
+            {estadoModificar ? (
+          <button class="boton_estandar"  onClick={handleModificar}>
+            Anular
+          </button>
+        ) : null}
         </div>
+          </form>
+      
       ) : null}
 
       <div>
-        <button onClick={handleEliminar}>Eliminar</button>
-        <button onClick={handleModificar}>Modificar</button>
-        {estadoModificar ? (
-          <button onClick={handleValidarModificacion}>
-            Confirmar modificacion
-          </button>
-        ) : null}
+      
+
       </div>
     </div>
   );

@@ -19,9 +19,12 @@ import MisPedidos from "./components/productos/vistas/MisPedidos";
 import AdminProductos from "./components/mantenedor/AdminProductos";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import QuienesSomos from "./components/quienes/quienesSomos";
 
 import './styles/principal.css';
 import BannerSuperior from "./components/BannerSuperior";
+
+import imagenback from "./assets/imagenes/fondoprincipal.jpg";
 
 function App() {
   const THIS_URL= "http://localhost:3000/";
@@ -29,11 +32,14 @@ function App() {
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();
    const [flagCreaPedido, setFlagCreaPedido] =  useState(true);
+   const [pedidoPorConfirmar, setPedidoPorConfirmar] = useState(false);
    const [tipoUsuario, setTipoUsuario] = useState("");
    const [tiposProducto, setTiposProducto] = useState([]);
    const [listado, setListado] = useState([]);
- 
-
+   const [urlBackend_dir, setUrlBackend_dir] = useState("");
+   const [listadoPedidos, setListadoPedidos] = useState([]);//listado de pedidos de seccion Mis Pedidos
+   const [mensajeria, setMensajeria] = useState("");
+  
   function actualizaResumen()
   {
   let cantidad = 0;
@@ -64,12 +70,13 @@ function App() {
     }
   console.log("quitar item producto");
   actualizaResumen();
-  }
+  } 
 
   function limpiarCarrito(){
     console.log("limpar carrito");
+    setPedidoPorConfirmar(false);
     setPedido(new Pedido());
-    setFlagCreaPedido(true);
+    setFlagCreaPedido(true); 
     actualizaResumen();
     console.log("limpio?"+pedido);
     localStorage.setItem('pedido', JSON.stringify(new Pedido()));
@@ -78,6 +85,7 @@ function App() {
   function agregarItemProducto(ID)
   {
     console.log("agregar item producto ID:"+ID);
+     
     for(let i=0;i<pedido.items.length;i++)
     {
         if(pedido.items[i].ID==ID)
@@ -140,16 +148,11 @@ function App() {
       }
     }
   return null;
-  }  
- 
+  }   
 
 
-    useEffect(()=>{
-
-      
+    useEffect(()=>{      
       console.log("inicia proxy valida sesion al iniciar");
-
-
       console.log("recargar listado ");
       axios
         .get("http://localhost:3000/api/productos/obtieneTiposDeProducto")
@@ -196,15 +199,10 @@ function App() {
       console.log("pasa por useEffect de PEDIDO en app.jsx");
       console.log("PEDIDO es "+pedido);
       localStorage.setItem('pedido',JSON.stringify(pedido));
-    },[pedido]);
-
-
-    
-
-
+    },[pedido])
   
     return (
-    <div id="wrapper">
+    <div id="wrapper" style={{backgroundImage: `url(${imagenback})`}}>
 
  
 
@@ -215,10 +213,13 @@ function App() {
           eliminarProducto, sesion, setSesion,
           setFlagCreaPedido, flagCreaPedido,
           limpiarCarrito,setTipoUsuario, listado, setListado,
-          tiposProducto
+          tiposProducto, urlBackend_dir, setUrlBackend_dir,
+          pedidoPorConfirmar, setPedidoPorConfirmar,
+          listadoPedidos, setListadoPedidos,
+          mensajeria, setMensajeria
+          
          }}
-      >
-      
+      >     
        
         <Router>
           <Routes>
@@ -227,10 +228,8 @@ function App() {
             <Route path="/register" Component={Register} />
             <Route path="/verPedido" Component={VerPedido} />
             <Route path='/misPedidos' Component={MisPedidos} />
+            <Route path='/quienesSomos' Component={QuienesSomos} />
             <Route path='/adminProductos' Component={AdminProductos} />
-            
-            
-
             <Route
               path="/"
               element={
@@ -242,8 +241,6 @@ function App() {
                 )
               }
             />
-        
-            
           </Routes>
         </Router>
       </Context.Provider>

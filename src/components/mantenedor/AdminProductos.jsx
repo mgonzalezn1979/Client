@@ -17,12 +17,11 @@ function AdminProductos() {
 
   const navigate = useNavigate();
 
-  const [imagen,setImagen] = useState();
+  const [imagen, setImagen] = useState();
   const [imagenUrl, setImagenUrl] = useState();
 
-  function handleImagenCambio(e)
-  {
-      setImagen(e.target.files[0])
+  function handleImagenCambio(e) {
+    setImagen(e.target.files[0]);
   }
 
   function handleCrear(e) {
@@ -34,13 +33,12 @@ function AdminProductos() {
     const precio = formPrecio;
 
     const formData = new FormData();
-    formData.append('imagen', imagen);
-    formData.append("nombre", nombre); 
+    formData.append("imagen", imagen);
+    formData.append("nombre", nombre);
     formData.append("descripcion", descripcion);
     formData.append("tipoProducto", tipo);
     formData.append("precio", precio);
     formData.append("descuento", 0);
-
 
     if (validaPrecio(precio) && validaTipo(tipo)) {
       //invoka api crear producto
@@ -105,10 +103,7 @@ function AdminProductos() {
         console.log("ok al conectar api productos");
         console.log(result.data.data.result);
         let resultado = result.data.data.result;
-        setListado(resultado);
-        //setStatus(result.data.status);
-
-        //setFiltro(-1);
+        setListado(resultado);        
       })
       .catch((error) => {
         console.log("error:" + error);
@@ -118,111 +113,153 @@ function AdminProductos() {
   return (
     <>
       <Header />
-      <div>
-        <p>Lista de productos</p>
-        <button
-          onClick={() => {
-            setFormDescripcion("");
-            setFormNombre("");
-            setFormPrecio(0);
-            setFormTipoProducto('1');
-            setVisibleCrear(!visibleCrear);
-          }}
-        >
-          Crear Producto
-        </button>
-      </div>
-      <div hidden={!visibleCrear}>
-        <p>Formulario crear producto</p>
-        <br />
-        <form onSubmit={handleCrear}>
-          <label htmlFor="nombre">Nombre:</label>
-          <input
-            type="text"
-            id="nombre"
-            onChange={(e) => {
-              setFormNombre(e.target.value);
-            }}
-          ></input>
+      <div class="container box">       
+        <div class="row">       
+            <div class="alert alert-danger" role="alert">
+            <p class="fuenteGrande">Mantenedor de productos</p>
+              <p class="fuenteEstandar">
+                Importante! se encuentra en sesi&oacute;n de administrador, por
+                tanto cualquier modificaci&oacute;n, eliminaci&oacute;n o
+                creaci&oacute;n de Productos, afectar&aacute; directamente en
+                los pedidos ya creados
+              </p>
+            </div>
+          </div>
+     
+        <div class="row centro_horizontal">
+           
+            <button
+              id="boton_estandar_admin"
+              onClick={() => {
+                setFormDescripcion("");
+                setFormNombre("");
+                setFormPrecio(0);
+                setFormTipoProducto("1");
+                setVisibleCrear(!visibleCrear);
+              }}
+            >
+              Crear
+            </button>
+           
+        </div>
+        <div class="row" hidden={!visibleCrear}>
+           <p class="texto_nombre">Formulario crear producto</p>
           <br />
+        
+          <form onSubmit={handleCrear}>
+             <div class="row ">
+             <div class="col-lg-3">
+            <label htmlFor="nombre">Nombre:</label>
+            </div>
+            <div class="col-lg-8">
+            <input
+              type="text"
+              id="nombre"
+              onChange={(e) => {
+                setFormNombre(e.target.value);
+              }}
+            ></input>
+            </div>
+            </div>
+            <div class="row margen-top">
+            <div class="col-lg-3">
 
-          <label htmlFor="descripcion">Descripcion:</label>
-          <input
-            type="text"
-            id="descripcion"
-            onChange={(e) => {
-              setFormDescripcion(e.target.value);
-            }}
-          ></input>
-          <br />
+            <label htmlFor="descripcion">Descripcion:</label>
+            </div>
+            <div class="col-lg-8">
+            <input
+              type="text"
+              id="descripcion"
+              onChange={(e) => {
+                setFormDescripcion(e.target.value);
+              }}
+            ></input>
+            
+            </div>
+           </div>
+           <div class="row margen-top">
+            <div class="col-lg-3">
+            <label htmlFor="precio">Precio:</label>
+            
 
-          <label htmlFor="precio">Precio:</label>
-          <input
-            type="text"
-            id="precio"
-            onChange={(e) => {
-              setFormPrecio(e.target.value);
-              validaPrecio(e.target.value);
-            }}
-          ></input>
-          <br />
-          <label htmlFor="tipo">Tipo:</label>
-          <select
-            id="tipoProducto "
-            onChange={(e) => {
-              setFormTipoProducto(e.target.value);
-              validaTipo(e.target.value);
-            }}
-          >
-            {tiposProducto.map((item) => {
-              console.log(item);
-              return (
-                <option key={item.ID} value={item.ID}>
-                  {item.Nombre}
-                </option>
-              );
-            })}
-          </select>
-
-          <label htmlFor="imagen">Imagen</label>
-          <input
-            type="file"
-            name="imagen"
-            id="iamgen"
-            accept="image/*"
-            onChange={handleImagenCambio}
-          />
-
-          <input type="submit" value="Crear" />
-        </form>
-        <button
-          onClick={() => {           
-            setVisibleCrear(!visibleCrear);
-          }}
-        >
-          Volver
-        </button>
-      </div>
-      {listado ? (
-        <div hidden={visibleCrear}>
-          {listado.length == 0 ? (
-            <p>No hay productos</p>
-          ) : (
-            <ul>
-              {listado.map((producto) => {
+            </div>
+            <div class="col-lg-5 ">
+            <input
+              type="text"
+              id="precio"
+              onChange={(e) => {
+                setFormPrecio(e.target.value);
+                validaPrecio(e.target.value);
+              }}
+            ></input></div>
+           </div>
+           <div class="row margen-top">
+           <div class="col-lg-3">
+            <label htmlFor="tipo">Tipo:</label>
+            </div>
+            <div class="col-lg-6">
+            <select
+              id="tipoProducto "
+              onChange={(e) => {
+                setFormTipoProducto(e.target.value);
+                validaTipo(e.target.value);
+              }}
+            >
+              {tiposProducto.map((item) => {
+                
                 return (
-                  <li key={producto.ID}>
-                    <ProductoItemAdmin producto={producto} />
-                  </li>
+                  <option key={item.ID} value={item.ID}>
+                    {item.Nombre}
+                  </option>
                 );
               })}
-            </ul>
-          )}
+            </select></div></div>
+            <div class="row margen-top">
+            <div class="col-lg-3">
+
+            <label htmlFor="imagen">Imagen</label>
+            </div>
+            <div class="col-lg-8">
+            <input
+              type="file"
+              name="imagen"
+              id="iamgen"
+              accept="image/*"
+              onChange={handleImagenCambio}
+            /></div></div>
+            <div class="row margen-top">
+              <div class="col-lg-8">
+
+            <input class="boton_estandar" type="submit" value="Crear" />
+            
+            </div>
+            </div>
+          </form>
+          <button class="boton_estandar"
+            onClick={() => {
+              setVisibleCrear(!visibleCrear);
+            }}
+          >
+            Volver
+          </button>
         </div>
-      ) : null}
+        </div>
+        <div class="container" hidden={visibleCrear}>
+          <div class="row">
+            <div class="texto_nombre" hidden={listado.length > 0}>
+              <p class="texto_descripcion">No hay productos</p>
+            </div>
+          </div>
+
+          {listado.length > 0
+            ? listado.map((producto) => (
+              <ProductoItemAdmin key={producto.id} producto={producto} /> 
+              ))
+            : null}
+        </div>
+       
     </>
   );
 }
 export default AdminProductos;
-
-// {/* <button onClick={setVisibleCrear(true)} >Crear</button><br/> */}
+// {/* <ProductoItemAdmin key={producto.id} producto={producto} /> */}

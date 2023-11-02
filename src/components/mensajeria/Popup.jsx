@@ -7,7 +7,7 @@ function Popup({ mensaje }) {
   return (
 
 
-     <div class="alert alert-primary" role="alert" id="popup_mensajeria" hidden={mensaje==''?true:false}>
+     <div onClick={()=>{mensaje='';}} class="alert alert-primary popup" role="alert" id="popup_mensajeria" hidden={mensaje==''?true:false}>
       {mensaje}
    
     </div>

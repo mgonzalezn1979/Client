@@ -10,17 +10,20 @@ import iconoHome from "../assets/imagenes/home.png";
 import cesta from "../assets/imagenes/cesta.png";
 import pedidos from "../assets/imagenes/pedidos.png";
 import nuevo from "../assets/imagenes/nuevo.png";
+import logo from "../assets/imagenes/logo.png";
 
 function Header() {
   const navigate = useNavigate();
-  const { sesion, setSesion, flasetFlagCreaPedido, flagCreaPedido,
-    limpiarCarrito, tipoUsuario}=useContext(Context);
+  const { setMensajeria,sesion, setSesion, flasetFlagCreaPedido, flagCreaPedido,
+    limpiarCarrito, tipoUsuario, pedidoPorConfirmar, setPedidoPorConfirmar}=useContext(Context);
 
     console.log("tipo usuairo "+tipoUsuario);
 
    useEffect(() => {
     if(Cookies.getItem('sesion')==null){
       navigate("/login");
+    }else{
+      setSesion(JSON.parse(Cookies.getItem('sesion')))
     }
    }, []);
 
@@ -31,55 +34,56 @@ function Header() {
     Cookies.removeItem("session");
     Cookies.removeItem('pedido');
     Cookies.removeItem('pedido','');
-   // setPedido(new Pedido());
+   
     setSesion(()=>{
       return null});
       navigate("/");
   }
 
   return (    
-<div class="container fluid">
-        <div class="row align-items-center">
-          <div class="col-lg-1">           
+<div class="container fluid">&nbsp;
+        <div class="row align-items-center encabezado">
+          <div class="col-lg-1 ">           
                          
                 <a href="/">
-                  <img src={iconoHome} class="icono"></img>
+                  <img src={logo} class="icono"></img>
                 </a>              
              
           </div>
 
-          <div class="col-lg-3">
-            {sesion!=null?<h3>Bienvenido<br/>{sesion.nombre}</h3>
+          <div class="col-lg-3 middle margen-top">
+            {sesion!=null?<p class="fuenteChica">Hola {sesion.nombre}</p>
             :null} 
-             <button class="boton_estandar"onClick={handleCerrar} >Cerrar</button>       
+                    
+          </div>
+          <div class="col-lg-2">            
+             <button class="boton_estandar_2" onClick={handleCerrar} >Cerrar</button>       
           </div>
         
-          <div class="col-lg-3">
+          <div class="col-lg-3" hidden={sesion.tipoUsuario!='Administrador'}>
           {
         (sesion && sesion.tipoUsuario=='Administrador')?<p>
-          <button class="boton_estandar" onClick={()=>{navigate("/adminProductos")}}>Productos</button>
+          <button id="boton_estandar_admin" onClick={()=>{navigate("/adminProductos")}}>Productos</button>
         </p>:
         <p>no es admin ${tipoUsuario}</p>
         }
           </div>
-          <div class="col-lg-2">           
-                         
-                <a href="/misPedidos">
-                  <img src={pedidos} class="icono"></img>
-                </a>              
-             
-          </div>
-          <div class="col-lg-1">
-          <img src={nuevo} class="icono"></img>
-          {!flagCreaPedido?<button onClick={limpiarCarrito}>Pedido nuevo</button>
-          :<p></p>}
-          </div>
-          <div class="col-lg-1">                         
-                         <a href="/verPedido">
-                           <img src={cesta} class="icono"></img>
-                         </a>    
-                      
-            </div>
+          <div class="col-lg-1" >            
+            <img src={pedidos} class="icono" onClick={()=>{
+              setMensajeria("");
+              navigate("/misPedidos");}}></img>
+           </div>   
+
+           
+          <div class="col-lg-1" hidden={!pedidoPorConfirmar}>
+           <img src={cesta} class="icono" 
+           onClick={()=>
+           {setPedidoPorConfirmar(true);navigate("/verPedido");}}></img></div>
+            
+            <div class="col-lg-1" hidden={pedidoPorConfirmar}>
+           <img src={cesta} class="icono" 
+           onClick={()=>
+           {alert("Canasta vacia");}}></img></div>
         </div>  
         </div>   
   );

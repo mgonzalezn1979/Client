@@ -9,15 +9,26 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function VerPedido(){
-    const THIS_URL= "http://localhost:3000/";
 
-    const { pedido, sesion, setPedido, setFlagCreaPedido,flagCreaPedido}=useContext(Context);
-    const navigate = useNavigate();    
+    const { setMensajeria, pedido, sesion, pedidoPorConfirmar, setPedidoPorConfirmar,setPedido, setFlagCreaPedido,flagCreaPedido}=useContext(Context);
+    const navigate = useNavigate();   
+     
     console.log("pedido:"+pedido);
     console.log("flag creaModifica=false"+flagCreaPedido);
+    
+    const handleAnular = ()=>{
+        setMensajeria("");
+        setFlagCreaPedido(true);
+        setPedido(new Pedido());
+        setPedidoPorConfirmar(false);
+        navigate("/");
+        
+    }
 
     const handleModificarPedido =()=>{
+        setMensajeria("");
         console.log("modificar pedido");
+        
        
         axios.put("http://localhost:3000/api/pedidos/pedido/"+pedido.ID,        
         {
@@ -30,10 +41,11 @@ function VerPedido(){
             console.log("respuesta crear pedido "+res);
             if(res.data.status==0){
                 console.log('Modificado OK');
-                alert("Pedido modificado ok");
+                setMensajeria("Pedido modificado ok, ID:"+pedido.ID);
                 setPedido(new Pedido());
                 setFlagCreaPedido(true);
                 navigate("/");
+                
                 }
                 else{
                     alert("error al modificar");
@@ -44,12 +56,14 @@ function VerPedido(){
             console.log(error);
         });       
         console.log('fin registrar pedido');
+        setPedidoPorConfirmar(false);
     }
 
     function handleRealizarPedido(){
         console.log("handleRealizarPedido");
         console.log("sesion es "+sesion);
         console.log("pedido: "+pedido);
+        setMensajeria("");
 
         axios.post("http://localhost:3000/api/pedidos/pedido",        
         {
@@ -62,10 +76,14 @@ function VerPedido(){
             console.log("respuesta crear pedido "+res);
             if(res.data.status==0){
                 console.log('PEDIDO INGRESADO OK');
+                setMensajeria("Pedido ingresado correctamente, ID:"+res.data.idPedido);
                 }
-          alert("su id pedido es "+res.data.idPedido);
+           
           setPedido(new Pedido());
+          setPedidoPorConfirmar(false);
+          setFlagCreaPedido(true);
           navigate("/");
+          
         }
 
         ).catch((error)=>
@@ -87,22 +105,31 @@ function VerPedido(){
         {console.log(item);
             return <ItemProducto ID={item.ID} cantidad={item.cantidad} nombre={item.nombre} total={item.total} urlFoto={item.urlFoto}></ItemProducto>
         
-        })}
-     
+        })}    
     
          
     </div>:
     <div>
         <p>No ha seleccionado productos</p></div>
         }
-        <div class="row">
-        {flagCreaPedido?<button class="boton_estandar" onClick={handleRealizarPedido} >Confirmar pedido</button> 
-    :<button class="boton_estandar" onClick={handleModificarPedido}>Confirmar modificacion</button> 
-    }  
-        </div>
+        <div class="container">
+        <div class="row listado center middle">
+          
+                  <p class="fuenteEstandar">
+                    
+                    Cantidad productos: {pedido.cantidadProductos}&nbsp;
+                    Total: {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
+                    {flagCreaPedido?<button class="boton_estandar" onClick={handleRealizarPedido} >Confirmar</button> 
+    :<button class="boton_estandar" onClick={handleModificarPedido}>Confirmar</button> 
+    } 
+    <button class="boton_estandar" 
+    onClick={handleAnular}>Anular</button> </p>             
+         
+       
+        </div></div>
 </div>
 </div>
-        <Footer />
+        {flagCreaPedido?<Footer />:null}
     
     </>)
 

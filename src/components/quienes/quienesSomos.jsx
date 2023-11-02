@@ -11,14 +11,21 @@ function QuienesSomos() {
       <div class="container">
         <div class="row ">
           <div class="alert alert-warning " role="alert">
-            <p class="texto_nombre ">Quienes somos</p>
-            <p class="fuenteEstandar">
+            <center><p class="fuenteGrande ">Quienes somos</p><br/></center>
+            <p class="fuenteChica">
               Somos tu cafeteria favorita en el centro de sevilla frente a las
               setas, nuestra web te permitir&aacute; guardar tus pedidos y ver
               nuestros productos{" "}
             </p>
           </div>
-          <div class="alert alert-success capa_opacidad_titulo " role="alert">
+
+        </div>
+      
+        <div class="row ">
+          <img src={quienesImagen} class="imagen_quienes "></img>
+        </div>
+      </div>
+      <div class="margen_quienes_boton_inicio alert alert-success capa_opacidad_titulo " role="alert">
 <p class="fuenteChica"> Para poder continuar te pediremos que te registres para que puedas iniciar sesi&oacute;n &nbsp;&nbsp;&nbsp;
 <button
             class="boton_estandar boton_sobre_quienes"
@@ -28,12 +35,6 @@ function QuienesSomos() {
           >
             Comenzar!
           </button></p> </div>
-        </div>
-      
-        <div class="row ">
-          <img src={quienesImagen} class="imagen_quienes "></img>
-        </div>
-      </div>
     </>
   );
 }

@@ -12,7 +12,7 @@ function BannerSuperior() {
       <div class="container capa_opacidad_titulo">
         <div class="row">        
      <div class="alert alert-warning col-lg-12" role="alert">Cafeteria SimuLatte
-   <img src={logo} class="icono"/>&nbsp;&nbsp;
+   <img src={logo} class="icono" onClick={()=>{navigate('/')}} />&nbsp;&nbsp;
    <button class="boton_estandar" onClick={()=>{navigate('/quienesSomos')}}>Conócenos</button>
     </div>
       </div>

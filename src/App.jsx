@@ -27,7 +27,7 @@ import BannerSuperior from "./components/BannerSuperior";
 import imagenback from "./assets/imagenes/fondoprincipal.jpg";
 
 function App() {
-  const THIS_URL= "http://localhost:3000/";
+  //  const THIS_URL= "http://localhost:3000/";
    const [pedido,setPedido] = useState(new Pedido());
    const [iniciado, setIniciado] = useState(false);
    const [sesion, setSesion] = useState();

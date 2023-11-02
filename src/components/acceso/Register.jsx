@@ -139,9 +139,9 @@ function Register() {
         <div class="col-lg-3"></div>
 
         <div class="col-lg-6 listado margen-medio">
-          <p class="texto_nombre">Registro nuevo usuario</p><br/>
+        <center><p class="fuenteGrande">Registro nuevo usuario</p><br/></center>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Nombre de usuario(username)</label>
+            <label class="fuenteChica" htmlFor="username">Nombre de usuario(username)</label>
             <input
               type="text"
               class="input_form"
@@ -150,37 +150,37 @@ function Register() {
               onChange={handleChange}
             />
 
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email" class="fuenteChica" >Email:</label>
             <input
-            class="input_form"
+            class="input_form texto_formulario"
               type="text"
               name="email"
               id="email"
               onChange={handleChange}
             />
 
-            <label htmlFor="Nombre">Nombre:</label>
+            <label htmlFor="Nombre" class="fuenteChica" >Nombre:</label>
             <input
               type="text"
-              class="input_form"
+              class="input_form texto_formulario"
               name="nombre"
               id="nombre"
               onChange={handleChange}
               placeholder="Ingrese su nombre"
             />
 
-            <label htmlFor="Apellidos">Apellidos:(opcional)</label>
+            <label htmlFor="Apellidos" class="fuenteChica" >Apellidos:(opcional)</label>
             <input
               type="text"
-              class="input_form"
+              class="input_form texto_formulario"
               name="apellidos"
               id="apellidos"
               onChange={handleChange}
               placeholder="Ingrese su apellido"
             />
 
-            <label htmlFor="Fecha Nacimiento:">Fecha de Nacimiento:(opcional)</label>
-            <input class="input_form"
+            <label htmlFor="Fecha Nacimiento" class="fuenteChica" >Fecha de Nacimiento:(opcional)</label>
+            <input class="input_form texto_formulario"
               type="date"
               name="fechaNacimiento"
               id="fechaNacimiento"
@@ -188,35 +188,36 @@ function Register() {
               placeholder="Ingrese su fecha de nacimiento"
             />
 
-            <label htmlFor="password1">Password:</label>
+            <label htmlFor="password1" class="fuenteChica" >Password:</label>
             <input
               type="password"
-              class="input_form"
+              class="input_form texto_formulario"
               name="password1"
               id="password1"
               onChange={handleChange}
               placeholder="solo caracteres y/o numeros"
             />
 
-            <label htmlFor="password2">Repita el password:</label>
+            <label htmlFor="password2" class="fuenteChica" >Repita el password:</label>
             <input
               type="password"
               name="password2"
-              class="input_form"
+              class="input_form texto_formulario"
               id="password2"
               onChange={handleChange}
               placeholder="Repita contraseña anterior"
             />
-            <label htmlFor="telefono">Telefono:(opcional)</label>
+            <label htmlFor="telefono" class="fuenteChica">Telefono:(opcional)</label>
             <input
               type="number"
               name="telefono"
-              class="input_form"
+              class="input_form texto_formulario"
               id="telefono"
               onChange={handleChange}
               placeholder="Ingrese su numero de telefono"
             />
-
+            <center>
+<br/>
             {noInvokando ? (
               <input type="submit" value="Registrar" class="boton_estandar" />
             ) : (
@@ -229,10 +230,10 @@ function Register() {
                 Registrando...
               </button>
             )}
-            <br />
+        
+            </center>
           </form>
-          <button class="boton_estandar" type="button" onClick={()=>{navigate('/')}}>Inicio</button>
-        </div>
+          </div>
         <div class="col-lg-3"></div>
       </div>
     </div>

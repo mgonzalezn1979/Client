@@ -5,7 +5,7 @@ import signoMas from "../../../assets/imagenes/signo_mas.png";
 import signoMenos from "../../../assets/imagenes/signo_menos.png";
 
 function ItemProducto({ cantidad, nombre, total, ID, urlFoto }) {
-  console.log("item Producto ID:" + ID);
+  console.log("item Producto ID:" + ID+ " url foto:"+urlFoto);
   const flag = cantidad >=2 ? false : true;
   const { agregarItemProducto, quitarItemProducto, eliminarProducto,
     setMensajeria } =

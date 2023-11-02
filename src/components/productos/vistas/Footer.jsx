@@ -16,13 +16,13 @@ function Footer() {
     <>
        
         {pedido.cantidadProductos == 0 ? (
-          <p>No hay pedido</p>
+          null
         ) : (
           <div class="container" hidden={pedidoPorConfirmar}>
             <div class="row ">
               <div class="col-lg-11 listado">
               
-                        
+                       
                   <p class="fuenteEstandar">
                     Total: {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                     Cantidad productos: {pedido.cantidadProductos}

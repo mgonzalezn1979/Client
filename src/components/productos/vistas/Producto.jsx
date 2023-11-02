@@ -9,7 +9,6 @@ function Producto(producto) {
   const { agregarProducto, pedido } = useContext(Context);
   const [check, setCheck] = useState(false);
 
-  console.log(pedido);
   useEffect(() => {
     console.log("objeto producto");
     console.log(producto);

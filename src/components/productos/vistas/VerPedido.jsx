@@ -7,12 +7,17 @@ import Header from "../../Header";
 import Footer from "./Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Popup from "../../mensajeria/Popup";
 
 function VerPedido(){
 
-    const { setMensajeria, pedido, sesion, pedidoPorConfirmar, setPedidoPorConfirmar,setPedido, setFlagCreaPedido,flagCreaPedido}=useContext(Context);
+    const { mensajeria, setMensajeria, pedido, sesion, pedidoPorConfirmar, setPedidoPorConfirmar,setPedido, setFlagCreaPedido,flagCreaPedido}=useContext(Context);
     const navigate = useNavigate();   
      
+    if(pedido.cantidadProductos==0)
+    {
+        setMensajeria("No ha seleccionado productos");
+    }
     console.log("pedido:"+pedido);
     console.log("flag creaModifica=false"+flagCreaPedido);
     
@@ -91,32 +96,35 @@ function VerPedido(){
             console.log(error);
         });       
         console.log('fin registrar pedido');
-    };
+    }
 
 
     return(<>
     < Header />
+    <Popup mensaje={mensajeria} />
+    
     <div class="container">
         <div class="row">
     {pedido.items.length>0?
     <div class="col-lg-12">
         
  {pedido.items.map(item=>
-        {console.log(item);
+        {console.log("aca puede venir le item sin foto "+item);
             return <ItemProducto ID={item.ID} cantidad={item.cantidad} nombre={item.nombre} total={item.total} urlFoto={item.urlFoto}></ItemProducto>
         
         })}    
     
          
     </div>:
-    <div>
-        <p>No ha seleccionado productos</p></div>
+    null
         }
-        <div class="container">
-        <div class="row listado center middle">
+        <div class="container" >
+        <div class="row listado center middle" hidden={pedido.cantidadProductos==0}>
+        
           
+                  
                   <p class="fuenteEstandar">
-                    
+                     
                     Cantidad productos: {pedido.cantidadProductos}&nbsp;
                     Total: {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                     {flagCreaPedido?<button class="boton_estandar" onClick={handleRealizarPedido} >Confirmar</button> 

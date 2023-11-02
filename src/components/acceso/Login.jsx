@@ -92,39 +92,39 @@ function Login() {
         <div class="col-lg-5 listado capa_opacidad_titulo">
           <br/>
           {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
-          
- 
-        <p class="texto_descripcion">
-          Bienvenido, Para poder continuar favor ingresa tu nombre de usuario ó correo electrónico y la contraseña</p>
+          <center>
+ <p class="fuenteGrande">Bienvenido</p><br/></center>
+        <p class="fuenteEstandar">
+          Para poder continuar favor ingresa tu nombre de usuario ó correo electrónico y la contraseña</p>
 
  
   
            
-            <br />
+          <br /><br />
             <form onSubmit={handleSubmit}>
               <div class="row">
                  
-              <label class="" htmlFor="ingreso">
+              <label class="fuenteChica" htmlFor="ingreso">
                 Email ó usuario(username):
               </label>
               
               
               <input
                 type="text"
-                class="input_form"
+                class="input_form login_form_input"
                 name="emailUsername"
                 id="emailUsername"
                 onChange={handleChange}
               />
               <br />
-              <label htmlFor="password">Password:</label>
+              <label class="fuenteChica" htmlFor="password">Password:</label>
               <input
-                class="input_form"
+                class="input_form login_form_input"
                 type="password"
                 name="password"
                 id="password"
                 onChange={handleChange}
-              />
+              /><br/>
              
              
 
@@ -147,17 +147,19 @@ function Login() {
             </form>
             
            
-           
+            <center>
+            
+          <p class="fuenteChica">
+            Si no estas registrado haz clic en registrar</p>
+            </center>
          </div> 
+
          <div class="col-lg-3">
        
         </div></div>
 
          <div class="centro_horizontal row">
-           
-            
-          <p class="texto_blanco">
-            Si no estas registrado haz clic en registrar</p>
+          
                    
         </div>
         </div>

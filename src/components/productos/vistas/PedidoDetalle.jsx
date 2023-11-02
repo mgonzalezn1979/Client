@@ -151,10 +151,9 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
               {detalle.items.map((item) => {
                 return (
                   <div>
-                    <p class="texto_descripcion">
-                      {item.cantidad}x{item.nombre} ,{item.subtotal}€
-                    </p>
-                  </div>
+                    <p class="fuenteGrande">{(Math.round(item.subtotal * 100) / 100).toFixed(2)} €</p>
+                    <p class="fuenteEstandar">&nbsp;&nbsp;&nbsp;{item.cantidad}x{item.nombre}</p>
+                                      </div>
                 );
               })}
             </div>

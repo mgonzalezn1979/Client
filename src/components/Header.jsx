@@ -14,8 +14,7 @@ import logo from "../assets/imagenes/logo.png";
 
 function Header() {
   const navigate = useNavigate();
-  const { setMensajeria,sesion, setSesion, flasetFlagCreaPedido, flagCreaPedido,
-    limpiarCarrito, tipoUsuario, pedidoPorConfirmar, setPedidoPorConfirmar}=useContext(Context);
+  const { setMensajeria,sesion, setSesion, tipoUsuario, pedidoPorConfirmar, setPedidoPorConfirmar}=useContext(Context);
 
     console.log("tipo usuairo "+tipoUsuario);
 
@@ -75,15 +74,12 @@ function Header() {
            </div>   
 
            
-          <div class="col-lg-1" hidden={!pedidoPorConfirmar}>
+          <div class="col-lg-1">
            <img src={cesta} class="icono" 
            onClick={()=>
            {setPedidoPorConfirmar(true);navigate("/verPedido");}}></img></div>
             
-            <div class="col-lg-1" hidden={pedidoPorConfirmar}>
-           <img src={cesta} class="icono" 
-           onClick={()=>
-           {alert("Canasta vacia");}}></img></div>
+            
         </div>  
         </div>   
   );

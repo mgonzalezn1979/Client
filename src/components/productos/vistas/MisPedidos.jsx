@@ -56,26 +56,16 @@ function MisPedidos() {
   return (
     <div>
       <Header />
-      <div
-          class="row align-items-center"
-          hidden={mensajeria == "" ? true : false}
-        >
-          <div class="col-lg-3"></div>
-          <div class="col-lg-6">
-            {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
-          </div>
-          <div class="col-lg-3"></div>
-        </div>
       <div class="container fluid">
         <div class="row">
-
-      <div>
-        <p class="texto_blanco center">Mis Pedidos</p>
+      <div><center>
+        <p class="fuenteGrande texto_blanco center">Mis Pedidos</p></center>
       </div>
       </div>
+      <div class="row">
+      <Popup mensaje={mensajeria} />
       </div>
-     
-        
+      </div>        
         {listadoPedidos == undefined ? (
           <p>No hay productos</p>
         ) : (

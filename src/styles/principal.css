@@ -53,11 +53,21 @@ h5 {
 .fuenteChica{
   font-family: "Monaco", monospace;
   font-size:1rem;
+  display: inline !important;
+  text-align:center !important;
+  margin: 0; 
 }
 
+
+.texto_formulario{
+  font-family: "Monaco", monospace;
+  font-size:1.5rem;
+
+}
 .fuenteEstandar{
   font-family: "Monaco", monospace;
   font-size:1.5rem;
+  display: inline !important;
 }
 
 .color_1{
@@ -83,6 +93,7 @@ h5 {
 .fuenteGrande{
   font-family: "Monaco", monospace;
   font-size:2rem;
+  display: inline !important;
 }
 
 .fuenteGrandeXL{
@@ -155,12 +166,22 @@ p.normal {
   padding: 5rem 5rem 4rem 5rem;
 
 }
+.margen_quienes_boton_inicio
+{
+  margin-top:-5rem;
+}
 
+.login_form_input{
+  margin-left:2rem;
+  margin-right:2rem;
+}
+
+ 
 .imagen_quienes{
   opacity:0.7;
   width:80rem;
   height:80rem;
-  margin-top:-2rem;
+  margin-top:1rem;
   border-radius: 2rem;
   z-index: 0;
   

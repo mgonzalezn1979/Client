@@ -143,7 +143,7 @@ function ProductoItemAdmin(producto) {
   }
   /** modifica flag de permite mostrar o no el formulario de modificacion */
   const handleModificar = () => {
-    setMensajeriaLocal("");
+    setMensajeria("");
     console.log("estadomodificar:" + estadoModificar);
     setEstadoModificar(!estadoModificar);
   };

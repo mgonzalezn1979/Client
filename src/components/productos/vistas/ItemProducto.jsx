@@ -43,10 +43,10 @@ function ItemProducto({ cantidad, nombre, total, ID, urlFoto }) {
   return (
     <>
       <div class="row listado">
-        <div class="col-xl-4 col-lg-5 col-md-12 col-sm-12 col-xs-12 center">
+        <div class="col-lg-4">
           {urlFoto ? <img class="imagen_producto" src={urlFoto}></img> : null}
         </div>
-        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 center">
+        <div class="col-lg-5">
         <p class="texto_descripcion">
           {cantidad} x {nombre}
         </p>
@@ -56,7 +56,7 @@ function ItemProducto({ cantidad, nombre, total, ID, urlFoto }) {
         <img src={signoMas} class="imagen_signos" onClick={handleAgregarItemProducto}></img>
         <img hidden = {flag} src={signoMenos} class="imagen_signos" onClick={handleQuitarItemProducto}></img>
         </div>
-        <div class="col-xl-4 col-lg-1 col-md-6 col-sm-12 col-xs-12 middle center">
+        <div class="col-lg-1 middle">
         <button class="boton_estandar" onClick={handleEliminarProducto}>
           Eliminar
         </button>

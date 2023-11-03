@@ -59,8 +59,9 @@ function App() {
  /** se utiliza para mostar mensajes enn pantalla como resultado de alguan operacion exitosa o no */
   const [mensajeria, setMensajeria] = useState("");
   /** se agrega para definir el host de la api para modificar al realiza un deploy */
-  const [URL_PATH_API, setURL_PATH_API] = useState("https://server-zi2v.onrender.com");//useState("http://localhost:3000");
+  const [URL_PATH_API, setURL_PATH_API] =useState("https://server-zi2v.onrender.com");
 //en prod https://server-zi2v.onrender.com
+//useState("http://localhost:3000");
 
   /** Mantiene el calculo de los totales, subtotal y cantidad de productos 
    * al crear y modificar el pedido 

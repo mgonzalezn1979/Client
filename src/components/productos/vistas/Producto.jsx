@@ -42,11 +42,11 @@ function Producto(producto) {
   }
   return (
     <>
-    <div class="col-lg-2"></div>
-    <div class="col-lg-10 listado">
+     
+    <div class="listado">
         <div class="container fluid ">
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-xl-6 col-lg-5 col-md-3 col-sm-12 col-xs-12 ">
               <div>
                 {producto.producto.urlFoto ? (
                   <img
@@ -56,11 +56,11 @@ function Producto(producto) {
                 ) : null}
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 col-xs-12 ">
             <p class="fuenteGrande">{producto.producto.Nombre}</p><br/>
             <p class="fuenteEstandar"> {producto.producto.Descripcion}</p>
             </div>
-            <div class="col-lg-3 center">
+            <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12 r">
             
               <p class="fuenteGrande"> {producto.producto.precio} €</p>
               <button class="boton_estandar" onClick={handleAgregarProducto}>

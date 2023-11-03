@@ -15,7 +15,7 @@ function BannerSuperior() {
     <>
       <div class="container capa_opacidad_titulo">
         <div class="row">        
-     <div class="alert alert-warning col-lg-12" role="alert">Cafeteria SimuLatte
+     <div class="alert alert-warning col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 center" role="alert">Cafeteria SimuLatte
    <img src={logo} class="icono" onClick={()=>{navigate('/')}} />&nbsp;&nbsp;
    <button class="boton_estandar" onClick={()=>{navigate('/quienesSomos')}}>Conócenos</button>
     </div>
@@ -26,3 +26,4 @@ function BannerSuperior() {
 }
 
 export default BannerSuperior;
+     

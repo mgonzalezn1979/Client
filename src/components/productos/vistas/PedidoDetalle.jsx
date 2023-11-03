@@ -1,5 +1,5 @@
 /** funcionalidad principal PedidoDetalle
- * permite 
+ * permite
  * - ver el detalle de un pedido ya realizado
  * - modificar el pedido
  * - eliminar el pedido *
@@ -16,7 +16,7 @@ import { useContext } from "react";
 /** recibe como parametro el objeto detalle del pedido y su ID */
 function PedidoDetalle({ detalle, ID_Pedido }) {
   const navigate = useNavigate();
-   
+
   /** elementos del contexto necesarios para operar  */
   const {
     URL_PATH_API,
@@ -24,13 +24,14 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
     limpiarCarrito,
     setMensajeria,
     setPedido,
-    setFlagCreaPedido,listadoPedidos,
-    setListadoPedidos
+    setFlagCreaPedido,
+    listadoPedidos,
+    setListadoPedidos,
   } = useContext(Context);
 
-/** uso local para ocultar o mostrar contenido */
+  /** uso local para ocultar o mostrar contenido */
   const [visible, setVisible] = useState(true);
- 
+
   /**  setea flag ocultar/ver detalle del pedido*/
   const handleStatus = () => {
     setMensajeria("");
@@ -44,21 +45,21 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
    * invoka la api de pedidos con el id correspondiente
    * respuesta se muestra en mensajeria popup
    */
-  const handleEliminarPedido = () => {    
+  const handleEliminarPedido = () => {
     axios
-      .delete(URL_PATH_API+"/api/pedidos/eliminar/" + ID_Pedido)
+      .delete(URL_PATH_API + "/api/pedidos/eliminar/" + ID_Pedido)
       .then((data) => {
         console.log("eliminado?");
         console.log(data);
         navigate("/misPedidos");
         //quita pedido de listado
-        var filtrado = listadoPedidos.filter(item=>item.ID!=ID_Pedido);
+        var filtrado = listadoPedidos.filter((item) => item.ID != ID_Pedido);
         setListadoPedidos(filtrado);
-        setMensajeria("Pedido "+ID_Pedido+" eliminado correctamente");        
+        setMensajeria("Pedido " + ID_Pedido + " eliminado correctamente");
       })
       .catch((error) => {
-        console.log("error "+error);
-        setMensajeria("Error al eliminar pedido ID:"+ID_Pedido);
+        console.log("error " + error);
+        setMensajeria("Error al eliminar pedido ID:" + ID_Pedido);
       });
   };
 
@@ -66,7 +67,6 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
    * seteando las variables correspondientes para "cargar"
    * el pedido en canasta */
   const handleModificarPedido = () => {
-     
     limpiarCarrito();
     let pedidoModificado = new Pedido();
     pedidoModificado.ID = ID_Pedido;
@@ -102,49 +102,41 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
   };
   return (
     <>
-      <div class="container fluid">
+      <div class="container">
         <div class="row listado">
-          <div clas="col-lg-1"></div>
-          <div class="col-lg-11 center">
-            <table id="tabla_detalle">
-              <tr>
-                <th class="fuenteTituloDetallePedido">ID Pedido</th>
-                <th class="fuenteTituloDetallePedido">Fecha</th>
-                <th class="fuenteTituloDetallePedido">Total</th>
-                <th></th>
-              </tr>
-              <tr>
-                <td class="listado2">
-                  <p class="texto_descripcion">{detalle.ID}</p>
-                </td>
-                <td class="listado2">
-                  <p class="texto_descripcion">
-                    {new Date(detalle.FECHA).toLocaleDateString("en-US")}
-                  </p>
-                </td>
-                <td class="listado2">
-                  <p class="texto_descripcion">{detalle.TOTAL} Є</p>
-                </td>
-                <td>
-                  <div class="col-lg-1 middle" hidden={visible}>
-                    <button class="boton_estandar" onClick={handleStatus}>
-                      Ocultar
-                    </button>
-                  </div>
+          <div class="col-xl-3 center">
+           <p class="fuenteTituloDetallePedido">ID PEDIDO:</p> <p class="listado2 texto_descripcion">{detalle.ID}</p>
+          </div>
 
-                  <div class="col-lg-1 middle" hidden={!visible}>
-                    <button class="boton_estandar" onClick={handleStatus}>
-                      Ver
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </table>
+          <div class="col-xl-3 center">
+          <p class="fuenteTituloDetallePedido">FECHA:</p> 
+            {" "}
+            <p class="texto_descripcion listado2">
+              {new Date(detalle.FECHA).toLocaleDateString("en-US")}
+            </p>
+          </div>
+
+          <div class="col-xl-3 center"><p class="fuenteTituloDetallePedido"> TOTAL:</p>
+           <p class="texto_descripcion listado2">{detalle.TOTAL} Є</p>
+          </div>
+
+          <div class="col-xl-3 middle center" hidden={visible}>
+            <button class="boton_estandar" onClick={handleStatus}>
+              Ocultar
+            </button>
+          </div>
+
+          <div class="col-xl-3 middle center" hidden={!visible}>
+            <button class="boton_estandar" onClick={handleStatus}>
+              Ver
+            </button>
           </div>
         </div>
+
+
         <div class="row listado2" hidden={visible}>
-          <div class="col-lg-1"></div>
-          <div class="col-lg-2 ">
+           
+        <div class="col-xl-3 col-lg-5 col-md-12 col-sm-12 col-xs-12 ">
             <button class="boton_estandar" onClick={handleEliminarPedido}>
               Eliminar
             </button>
@@ -152,19 +144,24 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
               Modificar
             </button>
           </div>
-          <div class="col-lg-1"></div>
            
-            <div KEY={detalle.ID + "detalle"} class="col-lg-8">
-              {detalle.items.map((item) => {
-                return (
-                  <div>
-                    <p class="fuenteGrande">{(Math.round(item.subtotal * 100) / 100).toFixed(2)} €</p>
-                    <p class="fuenteEstandar">&nbsp;&nbsp;&nbsp;{item.cantidad}x{item.nombre}</p>
-                                      </div>
-                );
-              })}
-            </div>
-           
+
+          <div KEY={detalle.ID + "detalle"} 
+           class="col-xl-9 col-lg-5 col-md-12 col-sm-12 col-xs-12 "
+          >
+            {detalle.items.map((item) => {
+              return (
+                <div>
+                  <p class="fuenteGrande">
+                    {(Math.round(item.subtotal * 100) / 100).toFixed(2)} €
+                  </p>
+                  <p class="fuenteEstandar">
+                    &nbsp;&nbsp;&nbsp;{item.cantidad}x{item.nombre}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       <br />

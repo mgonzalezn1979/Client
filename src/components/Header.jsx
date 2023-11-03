@@ -54,49 +54,32 @@ function Header() {
   }
 
   return (
-    <div class="container fluid ">
+    <div class="container fluid">
      
-      <div class="row encabezado">
-        <div class="contenido_header col-xl-1 col-lg-1 col-xs-12 col-md-3 col-sm-12">
-          
-            <img src={logo} class="icono" onClick={() => {
-              setMensajeria("");
-              navigate("/");
-            }}></img><p class="fuenteChica">Home</p>
-           
+      <div class="row align-items-center encabezado">
+        <div class="col-lg-1 ">
+          <a href="/">
+            <img src={logo} class="icono"></img>
+          </a>
         </div>
 
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-9 col-sm-12">
+        <div class="col-lg-3 middle margen-top">
           {sesion != null ? (
-            <span class="fuenteChica">Hola {sesion.nombre}</span>
+            <p class="fuenteChica">Hola {sesion.nombre}</p>
           ) : null}
-        </div>  
-       
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-6 col-sm-12">
-          <img
-            src={pedidos}
-            class="icono"
-            onClick={() => {
-              setMensajeria("");
-              navigate("/misPedidos");
-            }}
-          ></img><p class="fuenteChica">Mis Pedidos</p>
+        </div>
+        <div class="col-lg-3" hidden={sesion.tipoUsuario == "Administrador"}>
           
         </div>
-
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-6 col-sm-12">
-          <img
-            src={cesta}
-            class="icono"
-            onClick={() => {
-              setPedidoPorConfirmar(true);
-              navigate("/verPedido");
-            }}
-          ></img><p class="fuenteChica">Canasta</p>
+        <div class="col-lg-2 ">
+          <button class="boton_estandar_2" onClick={handleCerrar}>
+            Cerrar
+          </button>
         </div>
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-6 col-sm-12" >
-        <p>{sesion && sesion.tipoUsuario == "Administrador" ?(
-            
+
+        <div class="col-lg-3" hidden={sesion.tipoUsuario != "Administrador"}>
+          {sesion && sesion.tipoUsuario == "Administrador" ? (
+            <p>
               <button
                 id="boton_estandar_admin"
                 onClick={() => {
@@ -105,11 +88,30 @@ function Header() {
               >
                 Productos
               </button>
-            ):null}</p></div>
-        <div class="contenido_header col-xl-2 col-lg-3 col-xs-12 col-md-6 col-sm-12">
-          <button class="boton_estandar_2" onClick={handleCerrar}>
-            Cerrar
-          </button>
+            </p>
+          ) : null}
+        </div>
+        
+        <div class="col-lg-1">
+          <img
+            src={pedidos}
+            class="icono"
+            onClick={() => {
+              setMensajeria("");
+              navigate("/misPedidos");
+            }}
+          ></img>
+        </div>
+
+        <div class="col-lg-1">
+          <img
+            src={cesta}
+            class="icono"
+            onClick={() => {
+              setPedidoPorConfirmar(true);
+              navigate("/verPedido");
+            }}
+          ></img>
         </div>
       </div>
     </div>

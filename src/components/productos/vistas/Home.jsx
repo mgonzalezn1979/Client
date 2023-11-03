@@ -119,8 +119,10 @@ function Home() {
         </div>
 
         <div class="row">
-          
-          <div class="center col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+          <div class="col-lg-1">
+            <p></p>
+          </div>
+          <div class="col-lg-2">
             <button
               class="boton_estandar"
               onClick={() => {setMensajeria("");setFiltro(obtieneIDtipoProducto("Bebidas"))}}
@@ -128,7 +130,7 @@ function Home() {
               Bebidas
             </button>
           </div>
-          <div class="center col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+          <div class="col-lg-2">
             <button
               class="boton_estandar"
               onClick={() => {
@@ -137,7 +139,7 @@ function Home() {
               Comida
             </button>
           </div>
-          <div class="center col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+          <div class="col-lg-2">
             <button
               class="boton_estandar"
               onClick={() => {
@@ -148,17 +150,19 @@ function Home() {
               Merchandise
             </button>
           </div>
-          <div class="center col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 ">
+          <div class="col-lg-2">
             <button class="boton_estandar" onClick={() =>{
               setMensajeria("");
               setFiltro(-1);}}>
               Todo
             </button>
           </div>
-         
+          <div class="col-lg-1">
+            <p></p>
+          </div>
         </div>
         <div class="row align-items-center">
-          <div class="center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+          <div class="col-lg-12">
             {listado.length == 0 ? (
               <p>No hay productos</p>
             ) : (

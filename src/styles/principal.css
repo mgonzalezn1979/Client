@@ -3,14 +3,6 @@ font-family: "Monaco", monospace;
 background-color: #fcd7ad;
 }
 
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
-  color:#fcd7ad;
-}
-
 .imagen_checked{
   width:4rem;
   height:4rem;
@@ -64,7 +56,6 @@ h5 {
   font-size:1rem;
   text-align:center !important;
   margin: 0; 
-  font-weight: bold;;
 }
 
 .texto_formulario{
@@ -199,7 +190,7 @@ p.normal {
 }
 .icono{ 
     height: 2.5rem;
-    width: 2.5rem;
+    width: 2.5rem; 
 }
 
 .icono:hover{
@@ -293,7 +284,7 @@ footer {
 
 body {
   margin: 0;
- 
+  margin-bottom: 40px;
 }
 
 #wrapper {
@@ -316,18 +307,17 @@ body {
 opacity:0.75;
 margin-top: 1rem;
 margin-bottom: 1.5rem;
-margin-right: 1.5rem;
-margin-left: 1.5rem;
+margin-right: 2.5rem;
+margin-left: 5.5rem;
 padding-bottom: 1rem;
 padding-top:1rem;
-padding-left: 2rem;
 background-color: #82ddf0;
 border-radius: 1rem;
 vertical-align: middle; 
 }
 
 #tabla_detalle{
-  width: 100% !important;
+  width:100% !important;
   padding-top:0.0rem;
   padding-right:0rem;
   padding-left:0rem;
@@ -336,46 +326,19 @@ vertical-align: middle;
   border-spacing: 50px 0;
 }
 .encabezado{
-
-  padding-top:0.1rem;
-  padding-right:0.4rem;
-  padding-left:0.4rem;
-  padding-bottom:0.1rem;
-  margin-top: 0.0rem;
-  margin-bottom: 01.5rem;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
+padding-top:0.1rem;
+padding-right:0.4rem;
+padding-left:0.4rem;
+padding-bottom:0.1rem;
+margin-top: 0rem;
+margin-bottom: 0.5rem;
+margin-right: 0.5rem;
+margin-left: 0.5rem;
 background-color: antiquewhite;
 border-radius: 1.5rem;
 opacity:0.85;
-align-items: center;
-
-}
-
-.contenido_header{ 
- 
-  align-content: center !important;
-  align-items: center !important;;
-  text-align:center !important;;
-  vertical-align: bottom;
-  
-  padding-top:1rem;
-   
-  opacity:0.98;
-  background-clip: padding-box;
-}
-.row {
-  display: flex;
-  align-items: center;
-}
-.icono_texto{
-  visibility: hidden;
-  opacity: 0;
-}
-
-.icono_texto:hover{
-  visibility: visible;
-  opacity: 1;
+height:5rem;
+z-index:1;
 }
  .admin_crear{
   margin-left: 0.5rem;
@@ -388,10 +351,10 @@ padding-top:2.5rem;
 padding-right:1rem;
 padding-left:2rem;
 padding-bottom:2.5rem;
-margin-top: 1rem;
-margin-bottom: 1.5rem;
-margin-right: 1.5rem;
-margin-left: 1.5rem;
+margin-top: 2rem;
+margin-bottom: 1rem;
+margin-right: 0.5rem;
+margin-left: 3.5rem;
 background-color: antiquewhite;
 border-radius: 5rem;
 opacity:0.85;
@@ -474,15 +437,9 @@ border-radius: 5rem;
   margin-right:1rem;
 }
 #boton_estandar_admin{ 
-  width: 8rem !important;
+  width: 12rem !important;
   height: 3rem;
-  
-
-  padding-top:0rem;
-  padding-bottom: 0rem;
- 
-   
-  padding-right: 0rem;
+  padding: 0.1rem 0.1rem;
   background: scroll;
   background-image: none;
   background-color: #5296A5; 
@@ -491,9 +448,11 @@ border-radius: 5rem;
   border-right: 1rem;
   border-bottom: 1rem;    
   color: #faebd7;
-  font-size:medium !important;
+  font-size:large !important;
   border-radius: 13rem;
   transition: all 0.5s ease;
+  margin-top: 1rem; 
+  margin-right:1rem;
   position:sticky;
   background-color: red;   
 }

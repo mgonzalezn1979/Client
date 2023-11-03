@@ -13,20 +13,27 @@ import { Context } from "../contexto/Context";
 import { useContext } from "react";
 
 function ProductoItemAdmin(producto) {
-
-  const { tiposProducto, listado, setListado } = useContext(Context);
-
-  const [mensajeria, setMensajeria] = useState("");
-
-  const [ID, setID] = useState(producto.producto.ID);
+/** variables y funciones globales utilizadas del contexto  */
+  const { URL_PATH_API, tiposProducto, listado, setListado } = useContext(Context);
+/** define mensaje de resultado de alguna operacion para ser desplegado en pantalla */
+  const [setMensajeria] = useState("");
+/** almacena ID  de producto */
+  const [ID] = useState(producto.producto.ID);
+  /**flag de estaedo para determinar si esta modificando un producto  */
   const [estadoModificar, setEstadoModificar] = useState(false);
+  /** almacena descripcion de producto pasado por parametro */
   const [descripcion, setDescripcion] = useState(producto.producto.Descripcion);
+ /** almacena precio de producto pasado por parametro */
   const [precio, setPrecio] = useState(producto.producto.precio);
+  /** almacena tipo de producto pasado por parametro */
   const [tipo, setTipo] = useState(producto.producto.tipoProducto);
+  /** almacena nombre de producto pasado por parametro */
   const [nombre, setNombre] = useState(producto.producto.Nombre);
+  /** almacena imagen de producto */
   const [imagen, setImagen] = useState();
+  /** mensajeria de resultado de operacion para despliege sobre el producto*/
   const [mensajeriaLocal, setMensajeriaLocal] = useState(""); 
-
+/** almacena archivo subido en variable imagen */
   function handleImagenCambio(e) {
     setImagen(e.target.files[0]);
   } 
@@ -109,7 +116,7 @@ function ProductoItemAdmin(producto) {
       console.log("ID A ELIMINAR ES :" + ID);
 
       axios
-        .delete("http://localhost:3000/api/productos/producto/" + ID)
+        .delete(URL_PATH_API+"/api/productos/producto/" + ID)
         .then((data) => {
           console.log("invoko a api");
           const status = data.data.status;
@@ -160,7 +167,7 @@ function ProductoItemAdmin(producto) {
 
     //LLAMAR APi put para actualizar
     axios
-      .put("http://localhost:3000/api/productos/producto/" + ID, formData)
+      .put(URL_PATH_API+"/api/productos/producto/" + ID, formData)
       .then((data) => {
         const status = data.data.status;
         if (status == 0) {          

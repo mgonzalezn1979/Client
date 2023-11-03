@@ -21,7 +21,7 @@ import Popup from "../../mensajeria/Popup";
 function MisPedidos() {
 
   /**elementos de uso global del contexto para poder operar */
-  const { listadoPedidos,  setListadoPedidos, mensajeria, setMensajeria} = useContext(Context);
+  const { URL_PATH_API, listadoPedidos,  setListadoPedidos, mensajeria, setMensajeria} = useContext(Context);
   
 
   /** Permite cargar el listado de pedidos del usuario 
@@ -39,7 +39,7 @@ function MisPedidos() {
       if (username != null || username != undefined) {
         console.log("llamar al a api de listado de pedidos");
         axios
-          .post("http://localhost:3000/api/pedidos/listaPedidos", {
+          .post(URL_PATH_API+"/api/pedidos/listaPedidos", {
             username: username,
           })
           .then((result) => {

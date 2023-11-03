@@ -23,14 +23,17 @@ function Login() {
     emailUsername: "",
     password: "",
   });
-  /** estados locales  */
+  /** para el paso de mensajes a desplegar como resultado en pantalla  */
   const [mensajeria, setMensajeria] = useState("");
+
+  /** flag que marca true cuando se esta invocando el servicio de api */
   const [noInvokando, setNoInvokando] = useState(true);
 
+  /** permite dirigir a otra pagina */
   const navigate = useNavigate();
 
-  /** estados globales */
-  const { setSesion, setTipoUsuario } = useContext(Context);
+  /** estados globales del contexto */
+  const { setSesion, setTipoUsuario, URL_PATH_API } = useContext(Context);
 
   /** Funcion que permite validar el formulario del inicio de
    * sesion invokando la api de login
@@ -43,7 +46,7 @@ function Login() {
     e.preventDefault();
     setNoInvokando(false);
     axios
-      .post("http://localhost:3000/api/acceso/login", {
+      .post(URL_PATH_API+"/api/acceso/login", {
         emailUsername: formData.emailUsername,
         password: formData.password,
       })

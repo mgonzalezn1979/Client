@@ -13,22 +13,23 @@ import { Context } from "../contexto/Context";
 import Popup from "../mensajeria/Popup";
 
 function AdminProductos() {
+  /**flag de estados para despliegue o no de componentes segun si se esta creando producto o no */
   const [visibleCrear, setVisibleCrear] = useState(false);
+  /** almacena el nombre de producto */
   const [formNombre, setFormNombre] = useState("");
+  /** almacena descripcion de producto  */
   const [formDescripcion, setFormDescripcion] = useState("");
+  /** almacena precio de producto  */
   const [formPrecio, setFormPrecio] = useState("");
+  /** almacena tipo de producto*/
   const [formTipoProducto, setFormTipoProducto] = useState("");
-  const { tiposProducto, listado, setListado, setMensajeria, mensajeria } =
+  /** variables globales necesirias del contexto */
+  const { URL_PATH_API, tiposProducto, listado, setListado, setMensajeria, mensajeria } =
     useContext(Context);
-
-  const navigate = useNavigate();
-
-  useEffect(()=>{
-    console.log("solo pasa por aca");
-  },[listado]);
-
+ 
+ /** almacena imagen de producto */
   const [imagen, setImagen] = useState();
-
+/** actualiza variable que almacena imagen al agregar mediante el explorador web */
   function handleImagenCambio(e) {
     setMensajeria("");
     setImagen(e.target.files[0]);
@@ -39,13 +40,13 @@ function AdminProductos() {
       setMensajeria("Debe ingresar imagen");
       return false;
     }
-
+/** expresiones regulares para validacion de nombre  */
     const evalueNombre = /^[a-zA-Z0-9 %]{2,20}$/; //2 a 20 carcteres
     if (!evalueNombre.test(formNombre)) {
       setMensajeria("Debe ingresar un nombre valido (3 a 20 caracters maximo)");
       return false;
     }
-
+    /** expresiones regulares para evaluacion de descripcion de producto */
     const evalueDes = /^[a-zA-Z0-9 %]{2,50}$/; //2 a 50 carcteres
 
     if (!evalueDes.test(formDescripcion)) {
@@ -94,7 +95,7 @@ function AdminProductos() {
       setMensajeria("");
       
       axios
-        .post("http://localhost:3000/api/productos/producto", formData)
+        .post(URL_PATH_API+"/api/productos/producto", formData)
         .then((data) => {
           console.log("llegó al request!");
           if (data.data.status == 0) {
@@ -114,6 +115,7 @@ function AdminProductos() {
             setFormTipoProducto(tiposProducto[0].ID);
             setVisibleCrear(!visibleCrear);
             setListado((old) => [...old, nuevo]);
+           
           } else {
             alert("error al ingresar producto en base datos");
             setMensajeria("error al ingresar producto en base datos");
@@ -156,7 +158,7 @@ function AdminProductos() {
   function actualizaListado()
   {
     axios
-    .get("http://localhost:3000/api/productos/obtieneListaProductos")
+    .get(URL_PATH_API+"/api/productos/obtieneListaProductos")
     .then((result) => {
       console.log("ok al conectar api productos");
       console.log(result.data.data.result);

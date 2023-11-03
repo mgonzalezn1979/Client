@@ -23,7 +23,7 @@ import { useContext } from "react";
 function Home() {
 
   /** variables o estados de contexto uso global en mensajeria popup */
-  const { mensajeria, setMensajeria } = useContext(Context);
+  const { mensajeria, setMensajeria, URL_PATH_API } = useContext(Context);
 
   /** estados, variables y funciones de uso local */
   const [listado, setListado] = useState([]);
@@ -52,22 +52,11 @@ function Home() {
 
   useEffect(() => {
 
-    // axios
-    //   .get("http://localhost:3000/api/parametros/getURLBackend")
-    //   .then((result) => {
-    //     console.log("url backend " + result.data.data);
-    //     setUrlBackend_dir(result.data.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log("error " + error);
-    //     setMensajeria("Error en api");
-    //   });
-
-    /** Invoka a api para obtener los tipos de productos y setea uso global 
+   /** Invoka a api para obtener los tipos de productos y setea uso global 
      * mediante el contexto
      * en caso de error muestra mensaje en compontente Popup  */
     axios
-      .get("http://localhost:3000/api/productos/obtieneTiposDeProducto")
+      .get(URL_PATH_API+"/api/productos/obtieneTiposDeProducto")
       .then((result) => {
         let resultado = result.data.data;
         setTiposProductos(resultado);
@@ -81,7 +70,7 @@ function Home() {
  * en caso de error muestra mensaje en compontente Popup
  */
     axios
-      .get("http://localhost:3000/api/productos/obtieneListaProductos")
+      .get(URL_PATH_API+"/api/productos/obtieneListaProductos")
       .then((result) => {
         console.log("ok al conectar api productos");
         console.log(result.data.data.result);

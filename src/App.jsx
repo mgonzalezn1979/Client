@@ -42,15 +42,25 @@ function App() {
   /*** serie de estados  y metodos utilizados en forma transversal y compartidos por contexto  */
   const [pedido, setPedido] = useState(new Pedido());
   const [iniciado, setIniciado] = useState(false);
+  /** guarda la sesion rescatada de cookie y/o luego de validar usuario  */
   const [sesion, setSesion] = useState();
+  /** flag para mostrar/ocultar componentes segun el estado de creacion de un pedido */
   const [flagCreaPedido, setFlagCreaPedido] = useState(true);
+  /** flag que se setea cuando al momento de ver canasta el pedido queda en estado por confirmar o anular */
   const [pedidoPorConfirmar, setPedidoPorConfirmar] = useState(false);
+  /** guarda el tipo de usuario si es cliente o administrador */
   const [tipoUsuario, setTipoUsuario] = useState("");
+  /** guarda los tipos de productos al cargar la aplicacion a traves de la API  */
   const [tiposProducto, setTiposProducto] = useState([]);
+  /** canasta de productos */
   const [listado, setListado] = useState([]);
-  const [urlBackend_dir, setUrlBackend_dir] = useState("");
+  /** listado de pedidos del usuario de seccion mis pedidos */
   const [listadoPedidos, setListadoPedidos] = useState([]); //listado de pedidos de seccion Mis Pedidos
+ /** se utiliza para mostar mensajes enn pantalla como resultado de alguan operacion exitosa o no */
   const [mensajeria, setMensajeria] = useState("");
+  /** se agrega para definir el host de la api para modificar al realiza un deploy */
+  const [URL_PATH_API, setURL_PATH_API] = useState("http://localhost:3000");
+//en prod https://server-zi2v.onrender.com
 
   /** Mantiene el calculo de los totales, subtotal y cantidad de productos 
    * al crear y modificar el pedido 
@@ -189,17 +199,6 @@ function App() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log("pasa por useEffect de sesion en app.jsx");
-  //   console.log("sesion es " + sesion);
-  // // }, [sesion]);
-
-  // useEffect(() => {
-  //   console.log("Listado actualizado se ha modificado ");
-  //   listado.map((item) => {
-  //     console.log(item);
-  //   });
-  // }, [listado]);
 
   /** Actualiza la canasta u objeto pedidos en localstorage */
   useEffect(() => {
@@ -229,14 +228,13 @@ function App() {
           listado,
           setListado,
           tiposProducto,
-          urlBackend_dir,
-          setUrlBackend_dir,
           pedidoPorConfirmar,
           setPedidoPorConfirmar,
           listadoPedidos,
           setListadoPedidos,
           mensajeria,
           setMensajeria,
+          URL_PATH_API
         }}
       >
         <Router>

@@ -8,7 +8,7 @@
  * realizando clic sobre los botones e iconos
  */
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import Cookies from "js-cookies";
 import { useNavigate } from "react-router-dom";
 /** utiliza contexto para acceder a los estados, variables y metodos de uso global o superior */

@@ -3,12 +3,13 @@ import { useState, useEffect } from "react";
 import Popup from "../mensajeria/Popup";
 import axios from "axios";
 import BannerSuperior from "../BannerSuperior";
-import { useNavigate } from "react-router-dom";
-
+import { useContext } from "react";
+import { Context } from "../contexto/Context";
+ 
 function Register() {
+  /** flag que permite setear cuando se esta invocando api o no */
   const [noInvokando, setNoInvokando] = useState(true);
-  const navigate = useNavigate();
-
+  /** datos del formulario de creacion de usuario  */
   const [formData, setFormData] = useState({
     username: "",
     nombre: "",
@@ -18,9 +19,13 @@ function Register() {
     password2: "",
     fechaNac: "",
   });
-
+/** mensajeria para despliegue de resultado */
   const [mensajeria, setMensajeria] = useState("");
 
+  /** estados globales del contexto */
+  const { URL_PATH_API } = useContext(Context);
+
+  /** persistencia sobre el formulario y los datos asociados a la creacion de usuairo */
   function handleChange(e) {
     setNoInvokando(true);
     setMensajeria("");
@@ -31,6 +36,9 @@ function Register() {
       [name]: value,
     });
   }
+  /** al crear usuario se valida si esta ok se invoca API 
+   * para crear en la base datos
+   */
 
   function handleSubmit(e) {
     setNoInvokando(false);
@@ -43,7 +51,7 @@ function Register() {
 
       //formulario ok
       axios
-        .post("http://localhost:3000/api/acceso/register", {
+        .post(URL_PATH_API+"/api/acceso/register", {
           username: formData.username,
           nombre: formData.nombre,
           apellidos: formData.apellidos,

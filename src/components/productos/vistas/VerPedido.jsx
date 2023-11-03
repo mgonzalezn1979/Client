@@ -22,6 +22,7 @@ import Popup from "../../mensajeria/Popup";
 function VerPedido() {
   /** elementos del contexto  */
   const {
+    URL_PATH_API,
     mensajeria,
     setMensajeria,
     pedido,
@@ -57,7 +58,7 @@ function VerPedido() {
     setMensajeria("");
 
     axios
-      .put("http://localhost:3000/api/pedidos/pedido/" + pedido.ID, {
+      .put(URL_PATH_API+"/api/pedidos/pedido/" + pedido.ID, {
         username: sesion.username,
         tipoUsuario: sesion.tipoUsuario,
         cantidadProductos: pedido.cantidadProductos,
@@ -93,7 +94,7 @@ function VerPedido() {
   function handleRealizarPedido() {
     setMensajeria("");
     axios
-      .post("http://localhost:3000/api/pedidos/pedido", {
+      .post(URL_PATH_API+"/api/pedidos/pedido", {
         username: sesion.username,
         tipoUsuario: sesion.tipoUsuario,
         cantidadProductos: pedido.cantidadProductos,

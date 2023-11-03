@@ -19,6 +19,7 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
    
   /** elementos del contexto necesarios para operar  */
   const {
+    URL_PATH_API,
     actualizaResumen,
     limpiarCarrito,
     setMensajeria,
@@ -45,7 +46,7 @@ function PedidoDetalle({ detalle, ID_Pedido }) {
    */
   const handleEliminarPedido = () => {    
     axios
-      .delete("http://localhost:3000/api/pedidos/eliminar/" + ID_Pedido)
+      .delete(URL_PATH_API+"/api/pedidos/eliminar/" + ID_Pedido)
       .then((data) => {
         console.log("eliminado?");
         console.log(data);

@@ -57,22 +57,26 @@ function Header() {
     <div class="container fluid ">
      
       <div class="row encabezado">
-        <div class="contenido_header col-xl-1 col-lg-1 col-xs-12 col-md-3 col-sm-12">
+        <div class="contenido_header col-xl-1 col-lg-1 col-xs-12 col-md-1 col-sm-12">
           
             <img src={logo} class="icono" onClick={() => {
               setMensajeria("");
               navigate("/");
-            }}></img><p class="fuenteChica">Home</p>
+            }}></img><br/><p class="fuenteChica"
+            onClick={()=>{
+              setMensajeria("");
+              navigate("/");}}
+            >Home</p>
            
         </div>
 
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-9 col-sm-12">
+        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-2 col-sm-12">
           {sesion != null ? (
-            <span class="fuenteChica">Hola {sesion.nombre}</span>
+            <span class="fuenteChica">Hola <br/>{sesion.nombre}</span>
           ) : null}
         </div>  
        
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-6 col-sm-12">
+        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-3 col-sm-12">
           <img
             src={pedidos}
             class="icono"
@@ -80,11 +84,16 @@ function Header() {
               setMensajeria("");
               navigate("/misPedidos");
             }}
-          ></img><p class="fuenteChica">Mis Pedidos</p>
+          ></img><br/><p class="fuenteChica" 
+          onClick={()=>{
+            setMensajeria("");
+            navigate("/misPedidos");}}
+            >
+            Mis Pedidos</p>
           
         </div>
 
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-6 col-sm-12">
+        <div class="contenido_header col-xl-2 col-lg-2 col-xs-1 col-md-2 col-sm-12">
           <img
             src={cesta}
             class="icono"
@@ -92,9 +101,12 @@ function Header() {
               setPedidoPorConfirmar(true);
               navigate("/verPedido");
             }}
-          ></img><p class="fuenteChica">Canasta</p>
+          ></img><br/><p class="fuenteChica"
+          onClick={()=>{
+            setMensajeria("");
+            navigate("/verPedido");}}>Canasta</p>
         </div>
-        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-6 col-sm-12" >
+        <div class="contenido_header col-xl-2 col-lg-2 col-xs-12 col-md-5 col-sm-12" >
         <p>{sesion && sesion.tipoUsuario == "Administrador" ?(
             
               <button
@@ -106,7 +118,7 @@ function Header() {
                 Productos
               </button>
             ):null}</p></div>
-        <div class="contenido_header col-xl-2 col-lg-3 col-xs-12 col-md-6 col-sm-12">
+        <div class="contenido_header col-xl-2 col-lg-3 col-xs-12 col-md-1 col-sm-12">
           <button class="boton_estandar_2" onClick={handleCerrar}>
             Cerrar
           </button>

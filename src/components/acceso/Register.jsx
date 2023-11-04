@@ -67,7 +67,6 @@ function Register() {
           if (respuesta.status == 0) {
             location.replace("/login");
           } else {
-            setError({ status: respuesta.status, message: respuesta.message });
             setMensajeria(respuesta.message);
           }
         })
@@ -75,7 +74,7 @@ function Register() {
           setNoInvokando(false);
           setMensajeria("Error en API");
           console.log("error en api");
-          setError({ status: 1, message: error });
+         
         });
     }
     console.log("handleSubmit");
@@ -143,19 +142,21 @@ function Register() {
     <div class="container-fluid">
       <BannerSuperior />
       {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
-      <div class="row ">
-        <div class="col-lg-3"></div>
+      <div class="row justify-content-center">
+         
 
-        <div class="col-lg-6 listado margen-medio">
+        <div class="col-xl-8 col-lg-6 col-xs-12 col-md-8 col-sm-10  listado">
         <center><p class="fuenteGrande">Registro nuevo usuario</p><br/></center>
           <form onSubmit={handleSubmit}>
             <label class="fuenteChica" htmlFor="username">Nombre de usuario(username)</label>
             <input
               type="text"
-              class="input_form"
+              class="input_form texto_formulario"
               name="username"
               id="username"
               onChange={handleChange}
+              placeholder="alias"
+            
             />
 
             <label htmlFor="email" class="fuenteChica" >Email:</label>
@@ -164,6 +165,7 @@ function Register() {
               type="text"
               name="email"
               id="email"
+              placeholder="correo electrónico"
               onChange={handleChange}
             />
 
@@ -174,7 +176,7 @@ function Register() {
               name="nombre"
               id="nombre"
               onChange={handleChange}
-              placeholder="Ingrese su nombre"
+              placeholder="Nombre"
             />
 
             <label htmlFor="Apellidos" class="fuenteChica" >Apellidos:(opcional)</label>
@@ -184,7 +186,7 @@ function Register() {
               name="apellidos"
               id="apellidos"
               onChange={handleChange}
-              placeholder="Ingrese su apellido"
+              placeholder="Apellido"
             />
 
             <label htmlFor="Fecha Nacimiento" class="fuenteChica" >Fecha de Nacimiento:(opcional)</label>
@@ -203,7 +205,7 @@ function Register() {
               name="password1"
               id="password1"
               onChange={handleChange}
-              placeholder="solo caracteres y/o numeros"
+              placeholder="caracteres y/o numeros"
             />
 
             <label htmlFor="password2" class="fuenteChica" >Repita el password:</label>
@@ -224,8 +226,7 @@ function Register() {
               onChange={handleChange}
               placeholder="Ingrese su numero de telefono"
             />
-            <center>
-<br/>
+            <center><br/>
             {noInvokando ? (
               <input type="submit" value="Registrar" class="boton_estandar" />
             ) : (
@@ -237,12 +238,12 @@ function Register() {
                 ></span>
                 Registrando...
               </button>
-            )}
-        
+            )}        
+           
             </center>
           </form>
           </div>
-        <div class="col-lg-3"></div>
+         
       </div>
     </div>
   );

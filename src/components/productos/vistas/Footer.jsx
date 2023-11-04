@@ -27,9 +27,9 @@ function Footer() {
         {pedido.cantidadProductos == 0 ? (
           null
         ) : (
-          <div class="container" hidden={pedidoPorConfirmar}>
-            <div class="row ">
-              <div class="col-lg-11 listado">
+          <div class="container footer" hidden={pedidoPorConfirmar}>
+            <div class="row  center align-items-center listado">
+              <div class="col-xl-11 col-lg-11 col-xs-12 col-md-12 col-sm-12 ">
                   <p class="fuenteEstandar">
                     Total: {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                     Cantidad productos: {pedido.cantidadProductos}                           

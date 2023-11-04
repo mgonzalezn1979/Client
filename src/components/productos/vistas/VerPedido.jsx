@@ -140,12 +140,12 @@ function VerPedido() {
               })}
             </div>
           ) : null}
-          <div class="container">
+          <div class="container footer">
             <div
               class="row listado center middle"
               hidden={pedido.cantidadProductos == 0}
             >
-              <p class="fuenteEstandar">
+              <p class="fuenteEstandar ">
                 Cantidad productos: {pedido.cantidadProductos}&nbsp; Total:{" "}
                 {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                 {flagCreaPedido ? (

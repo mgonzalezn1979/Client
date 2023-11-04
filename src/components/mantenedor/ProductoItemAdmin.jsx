@@ -110,7 +110,7 @@ function ProductoItemAdmin(producto) {
  
   /** funcion que permite eliminar un producto */
   function handleEliminar() {    
-    setMensajeria("");    
+    setMensajeriaLocal("");    
 
     if (confirm("Está seguro que quiere eliminar este producto?")) {
       console.log("ID A ELIMINAR ES :" + ID);
@@ -151,7 +151,7 @@ function ProductoItemAdmin(producto) {
   /** Valida formulario  */
   const handleValidar = (e) => {
     console.log("valida al modificar");
-    setMensajeria("");
+    setMensajeriaLocal(""); 
     e.preventDefault();
 
     if(validaPrecio(precio) && valida()){

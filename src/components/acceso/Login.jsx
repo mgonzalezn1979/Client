@@ -101,13 +101,13 @@ function Login() {
   return (
     <div class="container-fluid center">
       <BannerSuperior />
-
+      <Popup mensaje={mensajeria} />
       <div class="row justify-content-center">
           
      
         <div class="col-xl-4 col-lg-6 col-xs-12 col-md-7 col-sm-11 listado capa_opacidad_titulo">
           <br />
-          {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
+         
           <center>
             <p class="fuenteGrande">Bienvenido</p>
             <br />

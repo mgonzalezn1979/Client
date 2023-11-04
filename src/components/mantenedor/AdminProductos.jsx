@@ -41,7 +41,7 @@ function AdminProductos() {
       return false;
     }
 /** expresiones regulares para validacion de nombre  */
-    const evalueNombre = /^[a-zA-Z0-9 %]{2,20}$/; //2 a 20 carcteres
+    const evalueNombre = /^[a-zA-Z0-9 %]{2,20}$/; //3 a 20 carcteres
     if (!evalueNombre.test(formNombre)) {
       setMensajeria("Debe ingresar un nombre valido (3 a 20 caracters maximo)");
       return false;
@@ -114,7 +114,25 @@ function AdminProductos() {
             setFormPrecio(0);
             setFormTipoProducto(tiposProducto[0].ID);
             setVisibleCrear(!visibleCrear);
-            setListado((old) => [...old, nuevo]);
+           // setListado((old) => [...old, nuevo]);
+
+    /** ir  a buscar listado completo ya que la url del a imagen depende del server*/
+    axios
+    .get(URL_PATH_API+"/api/productos/obtieneListaProductos")
+    .then((result) => {
+      console.log("ok al conectar api productos");
+      console.log(result.data.data.result);
+      let resultado = result.data.data.result;
+      setListado(resultado);
+     
+      console.log(status);
+      
+    })
+    .catch((error) => {
+      console.log("error:" + error);
+      setMensajeria("Error en api");
+    });
+
            
           } else {
             alert("error al ingresar producto en base datos");
@@ -199,7 +217,7 @@ function AdminProductos() {
         <div class="row centro_horizontal">
           <button
             id="boton_estandar_admin"
-            onClick={() => {
+            onClick={() => {             
               setFormDescripcion("");
               setFormNombre("");
               setFormPrecio(0);
@@ -323,7 +341,7 @@ function AdminProductos() {
 
         {listado.length > 0
           ? listado.map((producto) => (
-              <ProductoItemAdmin key={producto.id} producto={producto} />
+              <ProductoItemAdmin producto={producto} />
             ))
           : null}
       </div>
@@ -331,4 +349,4 @@ function AdminProductos() {
   );
 }
 export default AdminProductos;
-// {/* <ProductoItemAdmin key={producto.id} producto={producto} /> */}
+ 

@@ -317,17 +317,17 @@ body {
 }
 
 .listado2{
-opacity:0.75;
-margin-top: 1rem;
-margin-bottom: 1.5rem;
-margin-right: 1.5rem;
-margin-left: 1.5rem;
-padding-bottom: 1rem;
-padding-top:1rem;
-padding-left: 2rem;
-background-color: #82ddf0;
-border-radius: 1rem;
-vertical-align: middle; 
+  opacity:0.75;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+  padding-bottom: 1rem;
+  padding-top:1rem;
+  padding-left: 2rem;
+  background-color: #82ddf0;
+  border-radius: 1rem;
+  vertical-align: middle; 
 }
 
 #tabla_detalle{

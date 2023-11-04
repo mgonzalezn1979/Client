@@ -50,6 +50,7 @@ function Home() {
     return -1;
   }
 
+
   useEffect(() => {
 
    /** Invoka a api para obtener los tipos de productos y setea uso global 
@@ -89,17 +90,9 @@ function Home() {
   return (
     <>
       <Header />
+      <Popup mensaje={mensajeria} />
       <div class="container fluid">
-        <div
-          class="row align-items-center"
-          hidden={mensajeria == "" ? true : false}
-        >
-          <div class="col-lg-3"></div>
-          <div class="col-lg-6">
-            {mensajeria.length > 0 ? <Popup mensaje={mensajeria} /> : null}
-          </div>
-          <div class="col-lg-3"></div>
-        </div>
+ 
 
         <div class="row  espacio_superior">
           <div class="col-lg-2"></div>

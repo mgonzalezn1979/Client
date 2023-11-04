@@ -7,9 +7,12 @@ import { useState } from "react";
 function Popup({ mensaje }) {
 
   return (
-     <div class="alert alert-primary popup" role="alert" hidden={mensaje==''?true:false}>
+    <div class="cotainer">
+    <div class="row  align-items-center">
+     <center><div class="col-xl-5 col-lg-6 col-md-11 col-sm-8 col-xs-12 alert alert-primary popup" role="alert" hidden={mensaje==''?true:false}>
       {mensaje}   
-    </div>
+    </div></center>
+    </div></div>
   );
 
 }

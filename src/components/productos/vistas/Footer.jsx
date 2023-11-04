@@ -23,25 +23,27 @@ function Footer() {
     setPedidoPorConfirmar(true);
     navigate("/verPedido");
   };
-  return (<>       
+  return (<div class="container fluid ">   
+     
         {pedido.cantidadProductos == 0 ? (
           null
         ) : (
-          <div class="container footer" hidden={pedidoPorConfirmar}>
-            <div class="row  center align-items-center listado">
+          <div class="container fluid footer" hidden={pedidoPorConfirmar}>
+            <center><div class="row   align-items-center">
               <div class="col-xl-11 col-lg-11 col-xs-12 col-md-12 col-sm-12 ">
                   <p class="fuenteEstandar">
                     Total: {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                     Cantidad productos: {pedido.cantidadProductos}                           
                
-                <button class="boton_estandar" onClick={handleVerPedido}>
+                <button class="boton_estandar_footer" onClick={handleVerPedido}>
                   Ver pedido
                 </button> </p>  
                 </div>             
             </div>
+            </center>
           </div>
         )}   
-    </>
+    </div>
   );
 }
 export default Footer;

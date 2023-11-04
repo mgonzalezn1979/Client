@@ -43,10 +43,10 @@ function Producto(producto) {
   return (
     <>
      
-    <div class="listado">
+    <div class="listado_productos">
         <div class="container fluid ">
           <div class="row">
-            <div class="col-xl-6 col-lg-5 col-md-3 col-sm-12 col-xs-12 ">
+            <div class="col-11 col-xl-6 col-lg-5 col-md-3 col-sm-12 col-xs-12 ">
               <div>
                 {producto.producto.urlFoto ? (
                   <img

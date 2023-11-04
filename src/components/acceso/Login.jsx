@@ -105,7 +105,7 @@ function Login() {
       <div class="row justify-content-center">
           
      
-        <div class="col-xl-4 col-lg-6 col-xs-12 col-md-7 col-sm-11 listado capa_opacidad_titulo">
+        <div class="col-xl-4 col-lg-6 col-xs-12 col-md-8 col-sm-11 listado capa_opacidad_titulo">
           <br />
          
           <center>

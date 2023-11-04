@@ -123,6 +123,7 @@ function VerPedido() {
     <>
       <Header />
       <Popup mensaje={mensajeria} />
+      <center>
       <div class="container">
         <div class="row">
           {pedido.items.length > 0 ? (
@@ -140,12 +141,12 @@ function VerPedido() {
               })}
             </div>
           ) : null}
-          <div class="container footer">
+          <div class="container" hidden={pedido.cantidadProductos == 0}>
+            
             <div
-              class="row listado center middle"
-              hidden={pedido.cantidadProductos == 0}
-            >
-              <p class="fuenteEstandar ">
+              class="row ">
+                <div class="col-xl-1 col-lg-1 footer" >
+              <p class="fuenteEstandar">
                 Cantidad productos: {pedido.cantidadProductos}&nbsp; Total:{" "}
                 {(Math.round(pedido.total * 100) / 100).toFixed(2)} €
                 {flagCreaPedido ? (
@@ -165,10 +166,29 @@ function VerPedido() {
                 </button>{" "}
               </p>
             </div>
+            </div>
+            <div class="row align-items-center">
+          <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  ">
+         
+            <div class=" alert-warning" role="alert">
+          <p class="fuenteGrande">&nbsp;</p>
+            <br/>&nbsp;
+
+            <br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;<br/>&nbsp;
+
+            <br/>
+
+              
+            </div>
+          </div>
+          
+        </div>
+
           </div>
         </div>
       </div>
-      {flagCreaPedido ? <Footer /> : null}
+      </center>
+     
     </>
   );
 }

@@ -1,9 +1,11 @@
 body{
 font-family: "Monaco", monospace;
 background-color: #fcd7ad;
+min-height:100%
 }
 
-
+html {height:100%} 
+ 
 .clearfix::after {
   content: "";
   clear: both;
@@ -218,7 +220,6 @@ p.normal {
 .boton_estandar:hover{
   background-color: white;
   color:#82ddf0;
-
 }
 
 
@@ -290,13 +291,47 @@ body {
     flex-direction: column;
 }
 
+
+.boton_estandar_footer{
+ 
+  width: 12rem !important;
+  opacity:0.85;
+  height: 2.5rem;   
+  padding: 0.1rem 0.5rem;
+  background: scroll;
+  background-image: none;
+  background-color: #5296A5; 
+  border-top: 1rem;
+  border-left: 1rem;
+  border-right: 1rem;
+  border-bottom: 1rem;    
+  color: #faebd7;
+  font-size:large !important;
+  border-radius: 13rem !important;
+  transition: all 0.5s ease;
+  margin-top: 0.5rem; 
+  margin-left:1rem;
+  margin-right: 1rem; 
+  marign-bottom:0rem;
+}
+ 
 .footer {
   width: 100%;
+  align-items: center;
+  padding-top:0.5rem;
+  padding-right:0.5rem;
+  padding-left:0.5rem;
+  padding-bottom:0.5rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  margin-right: 0rem;
+  margin-left: 0rem;
+  background-color: antiquewhite;
+  border-radius: 1rem;
+  opacity:0.85;  
   position: fixed; 
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 8rem;
+  bottom: 1%!important;
+  
  
 }
 
@@ -314,6 +349,19 @@ body {
 .espacio_superior{
   padding-top:1rem !important;
   padding-bottom:1rem !important;
+}
+.listado_productos{
+  padding-top:2.5rem;
+padding-right:1rem;
+padding-left:0.5rem;
+padding-bottom:2.5rem;
+margin-top: 1rem;
+margin-bottom: 1.5rem;
+margin-right: 1.0rem;
+margin-left: 1.0rem;
+background-color: antiquewhite;
+border-radius: 5rem;
+opacity:0.85;
 }
 
 .listado2{
@@ -349,10 +397,10 @@ body {
   margin-bottom: 01.5rem;
   margin-right: 0.5rem;
   margin-left: 0.5rem;
-background-color: antiquewhite;
-border-radius: 1.5rem;
-opacity:0.85;
-align-items: center;
+  background-color: antiquewhite;
+  border-radius: 1.5rem;
+  opacity:0.85;
+  align-items: center;
 
 }
 
@@ -396,7 +444,6 @@ margin-left: 1.5rem;
 background-color: antiquewhite;
 border-radius: 5rem;
 opacity:0.85;
-
 }
 .detalle_pedido{
 padding-top:2.5rem;

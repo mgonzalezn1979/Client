@@ -91,7 +91,7 @@ function Home() {
     <>
       <Header />
       <Popup mensaje={mensajeria} />
-      <div class="container fluid">
+      <div class="container">
  
 
         <div class="row  espacio_superior">
@@ -104,7 +104,7 @@ function Home() {
 
               <p class="fuenteChica">
                 Puedes seleccionar y ver nuestros productos, agregar a la canasta y luego al confirmar pedido
-                tendras tu ID
+                tendras tu ID (todos los precios incluyen impuesto)
               </p>
             </div>
           </div>
@@ -151,7 +151,7 @@ function Home() {
          
         </div>
         <div class="row align-items-center">
-          <div class="center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+          <div class="center col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
             {listado.length == 0 ? (
               <p>No hay productos</p>
             ) : (
@@ -166,7 +166,24 @@ function Home() {
             )}
           </div>
         </div>
-      </div>
+    
+      
+        <div class="row align-items-center">
+          <div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  ">
+         
+            <div class="alert alert-warning" role="alert">
+          
+                <br/>
+
+              <p class="fuenteChica">
+              
+              </p>
+            </div>
+          </div>
+          
+        </div>
+        </div>
+
                 <Footer />    </>
   );
 }
